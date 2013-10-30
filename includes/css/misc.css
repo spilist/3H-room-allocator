@@ -1,0 +1,132 @@
+.horizontal-bar {
+  border-bottom: 1px solid #B8B8B8;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.floatleft {
+  position:relative;
+  float:left;  
+}
+
+.floatright {
+  position:relative;
+  float:right;
+}
+
+#note-feedback {
+  width: @page-width * 0.97;
+}
+
+.popover-btn {
+  width:20px;
+  margin-left:5px;
+}
+
+.collapse-btn {
+  width:20px;
+  margin-left:5px;
+}
+
+.collapse {
+  margin-top:2px;
+}
+
+.example-img {
+  width:50px;
+  margin-right:10px;
+}
+
+.collapse-text {
+  margin-right:10px;
+  margin-bottom:-10px;
+}
+
+.none {
+  display:none;
+}
+
+.group-info {
+  height:59px;
+  border-bottom: 1px solid #726969;
+  margin-bottom:5px;
+}
+
+.group-name {
+  margin-right:10px;
+}
+
+.groupinfo-small {
+  margin-top:20px; 
+  padding:5px;
+}
+
+.student-box {
+  border: 1px solid #e9eaed;
+  display: inline-block;
+  margin: 0 0 13px 3px;
+  padding: 0 10px 0 0;
+  vertical-align: top;
+  width: 216px;
+}
+
+.student-pic-small {
+  width:50px;
+  height:50px;
+}
+
+.student-name {
+  width:50px;
+  text-align:center;
+  margin-top: 2px;
+  margin-bottom: -5px;
+}
+
+#assignments-info {
+  position: relative;
+  margin-top: 7px;
+  margin-left: 70px;
+  padding: 19px 6px 6px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+#assignments-info :after {
+  content: "과제 상태";  
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 1px 3px;
+  font-size: 11px;
+  font-weight: bold;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #000;
+  -webkit-border-radius: 4px 0 4px 0;
+  -moz-border-radius: 4px 0 4px 0;
+  border-radius: 4px 0 4px 0;
+}
+
+.student-box-header {
+  padding: 5px;
+}
+
+.student-box-contents {
+  padding: 5px 0;
+  width: 141px;
+}
+
+.student-note-state {
+  margin-left:3px;
+}
+
+.selected-area {
+  background:gray;
+}

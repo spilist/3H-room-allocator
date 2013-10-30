@@ -1,0 +1,71 @@
+#page-header {
+	position: relative;
+	width: 100%;
+	height: 44px;
+	background-color: #6CA018;
+	margin-bottom: 3px;
+}
+
+#topbar-container {
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	width: 980px;
+}
+
+#site-title {
+  margin-top: -10px;
+  color:black;
+}
+
+#site-title:hover {
+  text-decoration:none;
+}
+
+#user-actions {
+	float: right;
+	margin: 0px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+#user-actions > li {
+	position: relative;
+	float: left;
+	margin-left: 5px;
+}
+
+#user-actions > li > a {
+	display: block;
+	padding: 5px;
+	font-size: 13px;
+	color: #333333;
+	transition: all 0.1s ease-in;
+	-webkit-transition: all 0.1s ease-in 0;
+	margin-top: 6px;
+}
+
+#user-actions > li > a:hover {
+	color: #4183c4;
+	text-decoration: none;
+}
+
+#user-actions > li > a .octicon {
+	font-size: 20px;
+}
+
+#profile {
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+#profile img {
+	height: 35px;
+	float: left;
+	margin-top: -6px;
+	margin-right: 5px;
+}
+
+#profile-name {
+	font-size: 16px;
+}
