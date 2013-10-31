@@ -204,7 +204,7 @@ if (!defined('PASSWORD_DEFAULT')) {
             trigger_error("Crypt must be loaded for password_verify to function", E_USER_WARNING);
             return false;
         }
-        $ret = crypt($password, $hash);
+        $ret = crypt($password, $hash);		
         if (!is_string($ret) || strlen($ret) != strlen($hash) || strlen($ret) <= 13) {
             return false;
         }

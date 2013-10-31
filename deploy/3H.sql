@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS `3h_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `3h_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('8ade29f5f92c039e3d826d76350ae935', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383187601, 'a:5:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";}'),
-('f02f1d6289b493cfde9c300adc4ac7ac', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383124356, '');
+('7bd01d0653bb6cfbd0f4ef9884e1beb2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383207658, 'a:6:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";s:1:"4";s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";s:17:"flash:old:message";s:23:"Successfully signed in.";}');
 
 DROP TABLE IF EXISTS `application`;
 CREATE TABLE IF NOT EXISTS `application` (
@@ -58,14 +57,14 @@ CREATE TABLE IF NOT EXISTS `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` varchar(11) NOT NULL,
   `member_name` varchar(45) NOT NULL,
-  `member_pw` varchar(30) NOT NULL,
+  `member_pw` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `member_name_UNIQUE` (`member_name`),
   UNIQUE KEY `member_id` (`member_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 INSERT INTO `member` (`id`, `member_id`, `member_name`, `member_pw`) VALUES
-(1, 'spilist', 'Hwidong Bae', '$2y$10$2YgjVJWY5wVoBz2BHM4Hyu7');
+(4, 'spilist', 'Hwidong Bae', '$2y$10$5VZOSDgyxCQk7pZGdWWC6O/o2Rl2WR8JbN6ElBC46msB4WCZB6beC');
 
 DROP TABLE IF EXISTS `object`;
 CREATE TABLE IF NOT EXISTS `object` (
