@@ -17,6 +17,9 @@
 					</a>
 <?php if ($this->session->userdata('is_login')): ?>
 					<ul id="user-actions">						
+						<li class="user-signed-in">
+							<?=$this->session->userdata('id')?>
+						</li>
 						<li>
 							<a id="profile-logout" title="Sign Out" href="<?=site_url('/auth/logout')?>">
 								<span class="octicon octicon-log-out"></span>

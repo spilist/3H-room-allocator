@@ -1,30 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 3.5.1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Oct 30, 2013 at 09:21 AM
--- Server version: 5.5.24-log
--- PHP Version: 5.4.3
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Database: `3h`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `3h_sessions`
---
 
 DROP TABLE IF EXISTS `3h_sessions`;
 CREATE TABLE IF NOT EXISTS `3h_sessions` (
@@ -37,18 +18,9 @@ CREATE TABLE IF NOT EXISTS `3h_sessions` (
   KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `3h_sessions`
---
-
 INSERT INTO `3h_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
+('8ade29f5f92c039e3d826d76350ae935', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383187601, 'a:5:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";}'),
 ('f02f1d6289b493cfde9c300adc4ac7ac', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383124356, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `application`
---
 
 DROP TABLE IF EXISTS `application`;
 CREATE TABLE IF NOT EXISTS `application` (
@@ -60,12 +32,6 @@ CREATE TABLE IF NOT EXISTS `application` (
   KEY `fk_application_seat1_idx` (`seat_id`),
   KEY `fk_application_member1_idx` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `group`
---
 
 DROP TABLE IF EXISTS `group`;
 CREATE TABLE IF NOT EXISTS `group` (
@@ -79,12 +45,6 @@ CREATE TABLE IF NOT EXISTS `group` (
   KEY `fk_group_member1_idx` (`group_owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `group_has_member`
---
-
 DROP TABLE IF EXISTS `group_has_member`;
 CREATE TABLE IF NOT EXISTS `group_has_member` (
   `group_id` int(11) NOT NULL,
@@ -93,26 +53,19 @@ CREATE TABLE IF NOT EXISTS `group_has_member` (
   KEY `fk_group_has_member_member1_idx` (`member_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `member`
---
-
 DROP TABLE IF EXISTS `member`;
 CREATE TABLE IF NOT EXISTS `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` varchar(11) NOT NULL,
   `member_name` varchar(45) NOT NULL,
-  `member_pw` varchar(45) NOT NULL,
+  `member_pw` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `member_name_UNIQUE` (`member_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `member_name_UNIQUE` (`member_name`),
+  UNIQUE KEY `member_id` (`member_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `object`
---
+INSERT INTO `member` (`id`, `member_id`, `member_name`, `member_pw`) VALUES
+(1, 'spilist', 'Hwidong Bae', '$2y$10$2YgjVJWY5wVoBz2BHM4Hyu7');
 
 DROP TABLE IF EXISTS `object`;
 CREATE TABLE IF NOT EXISTS `object` (
@@ -125,12 +78,6 @@ CREATE TABLE IF NOT EXISTS `object` (
   KEY `fk_object_room1_idx` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `room`
---
-
 DROP TABLE IF EXISTS `room`;
 CREATE TABLE IF NOT EXISTS `room` (
   `id` int(11) NOT NULL,
@@ -140,12 +87,6 @@ CREATE TABLE IF NOT EXISTS `room` (
   PRIMARY KEY (`id`),
   KEY `fk_room_lab1_idx` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `seat`
---
 
 DROP TABLE IF EXISTS `seat`;
 CREATE TABLE IF NOT EXISTS `seat` (
@@ -159,45 +100,24 @@ CREATE TABLE IF NOT EXISTS `seat` (
   KEY `fk_seat_member1_idx` (`seat_owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `application`
---
 ALTER TABLE `application`
   ADD CONSTRAINT `fk_application_member1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_application_seat1` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `group`
---
 ALTER TABLE `group`
   ADD CONSTRAINT `fk_group_member1` FOREIGN KEY (`group_owner_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `group_has_member`
---
 ALTER TABLE `group_has_member`
   ADD CONSTRAINT `fk_group_has_member_group1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_group_has_member_member1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `object`
---
 ALTER TABLE `object`
   ADD CONSTRAINT `fk_object_room1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `room`
---
 ALTER TABLE `room`
   ADD CONSTRAINT `fk_room_lab1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `seat`
---
 ALTER TABLE `seat`
   ADD CONSTRAINT `fk_seat_member1` FOREIGN KEY (`seat_owner_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_seat_room1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;

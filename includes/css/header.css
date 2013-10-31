@@ -29,6 +29,12 @@
 	list-style: none;
 }
 
+#user-actions .user-signed-in {
+	font-size:22px;
+	font-weight:bold;
+	margin-top:6px;
+}
+
 #user-actions > li {
 	position: relative;
 	float: left;

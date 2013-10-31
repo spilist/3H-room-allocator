@@ -10,15 +10,19 @@ class Member_m extends CI_MODEL {
 		return $this->db->get('member')->result();
 	}
 	
-	function get($id) {
-		return $this->db->get_where('member', array('id'=>$id))->row();
-	}		
+	function get($num) {
+		return $this->db->get_where('member', array('id'=>$num))->row();
+	}
+	
+	function getByID($id) {
+		return $this->db->get_where('member', array('member_id'=>$id))->row();
+	}
 	
 	function register($mem_info) {
 		$data = array(
-			'id'=>$mem_info['id'],
+			'member_id'=>$mem_info['member_id'],
 			'member_pw'	=>$mem_info['member_pw'],
-			'member_name'	=>$mem_info['membername'],			
+			'member_name'	=>$mem_info['member_name'],			
 		);
 		$this->db->insert('member', $data);
 		return $this->db->insert_id();
