@@ -24,7 +24,8 @@ class Create extends CI_Controller {
 		echo $this->input->post('test');
 		
 		//echo $this->input->post('seats');
-		$seats = $this->input->post('seats');
+		//$seats = $this->input->post('seats');
+		$seats = json_decode($this->input->post('roomJson'));
 		foreach ($seats as $seat) {
 			echo $seat;
 		}

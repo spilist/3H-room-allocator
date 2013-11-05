@@ -143,6 +143,8 @@
   	
   	//$("#seatArray").value = seatArray;
   	postValues['rooms[]'] = seatArray;
+  	postValues['roomJson'] = JSON.stringify(seatArray);
+  	console.log(postValues['roomJson']);
   	$.post("<?=site_url('/create/room')?>", postValues, function(data) {
   		console.log(data);
   	});
