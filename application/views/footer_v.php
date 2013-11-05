@@ -11,7 +11,7 @@
 		<script src="<?=base_url('includes/js/room_create.js')?>"></script>
 <?php endif;?>
 <?php if (uri_string()=='select'): ?>
-		<!--<script src="<?=base_url('includes/js/room_select.js')?>"></script>-->
+		<script src="<?=base_url('includes/js/room_select.js')?>"></script>
 <?php endif;?>
 	</body>
 </html>
