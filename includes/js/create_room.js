@@ -108,24 +108,30 @@ $(function() {
   	console.log("eafe");
   	console.log($("#roomCanvas").children());
   	var children = $("#roomCanvas").children();
-  	var seatArray = new Array();
-  	var postValues = {};
+  	var seatArray = []; //arr? new Array();
+  	var postValues = {}; //map? ... 아 이게 json 이랑 똑같네? ........
   	
   	for (var i = 0; i < children.length; i++) {
   		//console.log(children[i]);
-  	
-		if($(children[i]).hasClass("seat")) {
-			console.log("seat!!");
-			seatArray.push("seat!!");
+  		var child = $(children[i]);
+		if(child.hasClass("seat")) {
+			var seatInfo = {};
+			seatInfo['seat_location_x'] = child.offset().top;
+			seatInfo['seat_location_y'] = child.offset().left;
+			console.log(seatInfo);
+			seatArray.push(seatInfo);
 		}
   	}
   	
-  	//$("#seatArray").value = seatArray;
-  	postValues['rooms[]'] = seatArray;
   	postValues['roomJson'] = JSON.stringify(seatArray);
+  	
+  	console.log(seatArray);
   	console.log(postValues['roomJson']);
-  	$.post("<?=site_url('/create/room')?>", postValues, function(data) {
+  	console.log($("#submitBtn").attr("site_url"));
+  	
+  	$.post($("#submitBtn").attr("site_url"), postValues, function(data) {
   		console.log(data);
+  		//window.location.replace($("#submitBtn").data("site_url"));
   	});
   	//$.post("./create/room", postValues);
   }

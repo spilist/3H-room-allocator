@@ -21,5 +21,16 @@ class Seat_m extends CI_MODEL {
 	function getsBySeatOwner($seat_owner_id) {
 		return $this->db->get_where('seat', array('seat_owner_id'=>$seat_owner_id))->result();
 	}
+	
+	function createSeat($seat_info) {
+		$data = array(
+			'seat_location_x'=>$seat_info['seat_location_x'],
+			'seat_location_y'=>$seat_info['seat_location_y'],
+			'room_id'=>$seat_info['room_id'],
+		);
+		
+		$this->db->insert('seat', $data);
+		return $this->db->insert_id();
+	}
 }
 ?>

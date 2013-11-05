@@ -4,6 +4,7 @@ class Create extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->helper('form');
+		$this->load->model('seat_m');
 		$this->form_validation->set_error_delimiters('<dd class="error">','</dd>');		
     }
 	
@@ -21,15 +22,28 @@ class Create extends MY_Controller {
 			redirect('/');
     	}*/
 		
-		echo $this->input->post('test');
+		//TODO: form_validation
 		
-		//echo $this->input->post('seats');
-		//$seats = $this->input->post('seats');
 		$seats = json_decode($this->input->post('roomJson'));
+		
 		foreach ($seats as $seat) {
-			echo $seat;
+			echo $seat->seat_location_x;
+			$seatInfo = array(
+				'seat_location_x'=>(int)$seat->seat_location_x,
+				'seat_location_y'=>(int)$seat->seat_location_y,
+				'room_id'=>0,
+			);
+			
+			$this->seat_m->createSeat($seatInfo);
+			
+			/*$this->seat_m->createSeat(array(
+				'seat_location_x'=>(int)$seat->seat_location_x,
+				'seat_location_y'=>(int)$seat->seat_location_y,
+				'room_id'=>0, //XXX:use room id
+			));*/
 		}
+		
+		
 	}
 }
-
 ?>

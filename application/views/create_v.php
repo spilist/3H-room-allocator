@@ -14,5 +14,5 @@
 
 	<input id="seatArray" name="seats[]" type="hidden" />
 	<input name="test" type="hidden" value="1212" />
-	<input type="submit" value="create" onclick="asubmit()" />
+	<input id="submitBtn" type="submit" value="create" onclick="asubmit()" site_url="<?=site_url('/create/room')?>"/>
 </div>
