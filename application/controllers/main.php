@@ -30,7 +30,7 @@ class Main extends MY_Controller {
 		 * 이 유저의 어플리케이션, 이 유저가 가진 좌석은 대시보드 안에서 클릭하면 된다. */			
 		
 		/* 유저가 속한 그룹 가져오기 */
-		$data['groupsIn'] = $this->getGroupsIn();		
+		$data['groupsIn'] = $this->getGroupsIn();
 		
 		/* 유저가 만든 그룹 가져오기 */
 		$data['groupsOwn'] = $this->getGroupsOwn();
@@ -90,7 +90,7 @@ class Main extends MY_Controller {
 		$data = array();
 		foreach ($groups as $group) {
 			array_push($data, array(
-					'gid' => $gid,
+					'gid' => $group->id,
 					'gname' => $group->group_name,
 					'gowner' => $this->member_m->getName($group->group_owner_id),
 					'gpassword' => $group->group_pw,
