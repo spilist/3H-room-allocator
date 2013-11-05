@@ -21,7 +21,7 @@ $(function() {
     });
     
     $( "#roomCanvas" ).resizable();
-    $( "#roomCanvas" ).selectable({
+    /*$( "#roomCanvas" ).selectable({
     	filter: ".seat, .door",
     	selecting: function( event, ui ) {
     		selected = new Array();
@@ -37,7 +37,7 @@ $(function() {
     	unselected: function( event, ui ) {
     		selected = new Array();//... 사실 얘맨 빼야되는데??
     	}
-    });
+    });*/
     $( "#roomCanvas" ).droppable({
       accept: ":not(.seat):not(.door)",
       //accept: ":not(.ui-sortable-helper):not(.seat)",
