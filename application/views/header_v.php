@@ -7,6 +7,7 @@
 		<link href="<?=base_url('includes/css/misc.css')?>" rel="stylesheet" type="text/css">
 		<link href="<?=base_url('includes/css/front-page.css')?>" rel="stylesheet" type="text/css">
 		<link href="<?=base_url('includes/css/create.css')?>" rel="stylesheet" type="text/css">
+		<link href="<?=base_url('includes/css/dashboard.css')?>" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<title>Room Allocator</title>
 	</head>
@@ -20,7 +21,7 @@
 <?php if ($this->session->userdata('is_login')): ?>
 					<ul id="user-actions">						
 						<li class="user-signed-in">
-							<?=$this->session->userdata('name')?>
+							<a id="dashboard" title="Go to Dashboard" href="<?=site_url('/main/dashboard/')?>"><?=$this->session->userdata('name')?></a>
 						</li>
 						<li>
 							<a id="profile-logout" title="Sign Out" href="<?=site_url('/auth/logout')?>">
