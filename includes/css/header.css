@@ -35,6 +35,12 @@
 	margin-top:6px;
 }
 
+#user-actions #dashboard {
+	font-size:22px;
+	padding:0px;
+	margin-top:0px;
+}
+
 #user-actions > li {
 	position: relative;
 	float: left;

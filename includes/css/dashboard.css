@@ -1,0 +1,20 @@
+#dashboard-wrapper {	
+	text-align:center;
+}
+
+.groups-box {
+	border:1px solid black;
+	min-height:50px;
+	text-align:left;
+}
+
+#groups-in {
+	width:480px;
+	float:left;
+}
+
+#groups-own {
+	float:right;
+	width:480px;
+}
+
