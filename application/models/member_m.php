@@ -8,9 +8,14 @@ class Member_m extends CI_MODEL {
 	
 	function getsAll() {
 		return $this->db->get('member')->result();
-	}
+	}		
 	
 	function get($num) {
+		return $this->db->get_where('member', array('id'=>$num))->row();
+	}
+	
+	function getName($num) {
+		$this->db->select('member_name');
 		return $this->db->get_where('member', array('id'=>$num))->row();
 	}
 	

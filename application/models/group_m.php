@@ -6,6 +6,10 @@ class Group_m extends CI_MODEL {
 		parent::__construct();
 	}		
 	
+	function get($gid) {
+		return $this->db->get_where('group', array('id'=>$gid))->row();
+	}
+	
 	function getsAll() {
 		return $this->db->get('group')->result();
 	}

@@ -10,8 +10,8 @@ class Application_m extends CI_MODEL {
 		return $this->db->get('application')->result();
 	}
 	
-	function getsByMember($mem_id) {
-		return $this->db->get_where('application', array('member_id'=>$mem_id))->result();
+	function getsByMember($mem_id, $gid) {
+		return $this->db->get_where('application', array('member_id'=>$mem_id, 'group_id'=>$gid))->result();
 	}	
 }
 ?>

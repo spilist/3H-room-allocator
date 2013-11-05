@@ -18,7 +18,7 @@
 <?php if ($this->session->userdata('is_login')): ?>
 					<ul id="user-actions">						
 						<li class="user-signed-in">
-							<?=$this->session->userdata('id')?>
+							<?=$this->session->userdata('name')?>
 						</li>
 						<li>
 							<a id="profile-logout" title="Sign Out" href="<?=site_url('/auth/logout')?>">
@@ -28,10 +28,10 @@
 					</ul>						
 <?php else: ?>
 					<div class="header-actions">
-	<?php if (uri_string()=='auth/login'): ?>
+	<?php if (uri_string()=='auth/login' || uri_string()=='auth/showLogin'): ?>
 						<a class="button primary" href="<?=site_url('/auth/register')?>">Sign Up</a>
 	<?php endif; ?>
-  						<a class="button" href="<?=site_url('/auth/login')?>">Sign In</a>
+  						<a class="button" href="<?=site_url('/auth/showLogin')?>">Sign In</a>
 					</div>						
 <?php endif; ?>
 				</div>

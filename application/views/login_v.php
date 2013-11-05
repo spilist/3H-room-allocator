@@ -1,6 +1,6 @@
-		<?php if ($this->session->flashdata('message')) :?>
+		<?php if (isset($error)) :?>
 		<div class="flash-messages container">
-			<div class="flash flash-error"><?=$this->session->flashdata('message')?></div>
+			<div class="flash flash-error"><?=$error?></div>
 		</div>
 		<?php endif; ?>
 		<div class="auth-form" id="login">

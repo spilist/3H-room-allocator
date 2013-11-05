@@ -4,6 +4,7 @@ class Auth extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->helper('form');
+		$this->load->model('member_m');			
 		$this->form_validation->set_error_delimiters('<dd class="error">','</dd>');		
     }
 	
@@ -31,7 +32,6 @@ class Auth extends MY_Controller {
 				$this->load->helper('password');	
 			}
 			$hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);			
-			$this->load->model('member_m');
 			$user_num = $this->member_m->register(array(
 				'member_id'=>$this->input->post('id'),
 				'member_pw'=>$hash,
@@ -55,8 +55,8 @@ class Auth extends MY_Controller {
 		$this->form_validation->set_rules('id', 'ID', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		if (!$this->form_validation->run()) {
-			$this->session->set_flashdata('message', "Please enter your ID and password.");
-			$this->load->view('login_v');
+			$data['error'] = "Please enter your ID and password.";
+			$this->load->view('login_v', $data);
 		}
 		else {
 			$this->load->model('member_m');
@@ -69,13 +69,16 @@ class Auth extends MY_Controller {
 	    		password_verify($this->input->post('password'), $user->member_pw)) {
 	    			
 	    		$this->setUserDataForLogin($user);
-				$this->session->set_flashdata('message', 'Successfully signed in.');
 	    		redirect("/");
 	    	} else {	    		
-	    		$this->session->set_flashdata('message', "ID or password doesn't match."); 			
-	    		redirect('/auth/login');
+	    		$data['error'] = "ID or password doesn't match."; 			
+	    		$this->load->view('login_v', $data);
 	    	}			
 		}
+	}
+	
+	function showLogin() {
+		$this->load->view('login_v');
 	}
 
     function logout() {

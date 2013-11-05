@@ -4,7 +4,11 @@ class Seat_m extends CI_MODEL {
 
 	function __construct() {
 		parent::__construct();
-	}		
+	}
+	
+	function get($id) {
+		return $this->db->get_where('seat', array('id'=>$id))->row();
+	}
 	
 	function getsAll() {
 		return $this->db->get('seat')->result();
