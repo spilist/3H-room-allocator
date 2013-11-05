@@ -1,9 +1,18 @@
 <div id="#select-room-wrapper">
-	<div id="roomCanvas" class="ui-widget-content">
+	<div id="roomCanvas" class="ui-widget-content" style="position: relative;">
   		<h3 class="ui-widget-header">Room</h3>
-		<div class="seat ui-widget-content" style="position: absolute; top:100px; left:20px;"><span>seat</span></div>
-		<div class="seat ui-widget-content" style="position: absolute; top:100px; left:120px;"><span>seat</span></div>
-		<div class="seat ui-widget-content" style="position: absolute; top:100px; left:220px;"><span>seat</span></div>
-		<div class="seat ui-widget-content" style="position: absolute; top:100px; left:320px;"><span>seat</span></div>
+  		
+  		<?php
+  		
+  		foreach ($seats as $seat) {
+  			echo "<div class=\"seat ui-widget-content\" style=\"position: absolute; top:";
+			echo $seat->seat_location_y;
+			echo "px; left:";
+			echo $seat->seat_location_x;
+			echo "px; \"><span>seat</span></div>";
+		}
+  		
+  		?>
+  		
 	</div>
 </div>

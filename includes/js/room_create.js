@@ -110,14 +110,15 @@ $(function() {
   	var children = $("#roomCanvas").children();
   	var seatArray = []; //arr? new Array();
   	var postValues = {}; //map? ... 아 이게 json 이랑 똑같네? ........
+  	var canvasOffset = $("#roomCanvas").offset(); 
   	
   	for (var i = 0; i < children.length; i++) {
   		//console.log(children[i]);
   		var child = $(children[i]);
 		if(child.hasClass("seat")) {
 			var seatInfo = {};
-			seatInfo['seat_location_x'] = child.offset().top;
-			seatInfo['seat_location_y'] = child.offset().left;
+			seatInfo['seat_location_x'] = child.offset().left - canvasOffset.left;
+			seatInfo['seat_location_y'] = child.offset().top - canvasOffset.top;
 			console.log(seatInfo);
 			seatArray.push(seatInfo);
 		}

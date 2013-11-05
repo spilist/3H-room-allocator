@@ -4,7 +4,7 @@ class Select extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->helper('form');
-		//$this->load->model('seat_m');
+		$this->load->model('seat_m');
 		$this->form_validation->set_error_delimiters('<dd class="error">','</dd>');		
     }
 	
@@ -12,8 +12,14 @@ class Select extends MY_Controller {
 		/*if ($this->session->userdata('is_login')) {
 			redirect('/');    		
     	}*/
-		$data = 
-		$this->load->view('select_v');
+		$seats = $this->seat_m->getsByRoom(1);
+		$data['seats'] = $seats;//json_encode($seats);
+		
+		/*foreach ($seats as $seat) {
+			echo $seat->seat_location_x;
+		}*/
+		
+		$this->load->view('select_v', $data);
 	}
 	
 	//XXX: rename

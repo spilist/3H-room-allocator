@@ -31,7 +31,7 @@ class Create extends MY_Controller {
 			$seatInfo = array(
 				'seat_location_x'=>(int)$seat->seat_location_x,
 				'seat_location_y'=>(int)$seat->seat_location_y,
-				'room_id'=>0,
+				'room_id'=>1,
 			);
 			
 			$this->seat_m->createSeat($seatInfo);

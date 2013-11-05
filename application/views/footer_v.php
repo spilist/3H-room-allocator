@@ -8,7 +8,7 @@
 		<script src="<?=base_url('includes/js/bootstrap.min.js')?>"></script>		
 		<script src="<?=base_url('includes/js/jquery.autogrow.js')?>"></script>
 <?php if (uri_string()=='create'): ?>
-		<script src="<?=base_url('includes/js/create_room.js')?>"></script>
+		<script src="<?=base_url('includes/js/room_create.js')?>"></script>
 <?php endif;?>
 <?php if (uri_string()=='select'): ?>
 		<!--<script src="<?=base_url('includes/js/room_select.js')?>"></script>-->
