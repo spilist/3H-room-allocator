@@ -35,11 +35,11 @@ class Main extends MY_Controller {
 		/* 유저가 만든 그룹 가져오기 */
 		$data['groupsOwn'] = $this->getGroupsOwn();
 		
-		$this->load->view('dashbaord_v', $data);
+		$this->load->view('dashboard_v', $data);
 	}
 	
 	function getGroupsIn() {
-		$mid = $this->userdata('num');
+		$mid = $this->session->userdata('num');
 		$gidsIn = $this->group_has_mem_m->getsGroupsOfMember($mid);
 		$groups_data = array();
 		foreach ($gidsIn as $gidIn) {
@@ -84,7 +84,7 @@ class Main extends MY_Controller {
 	}
 	
 	function getGroupsOwn() {
-		$mid = $this->userdata('num');
+		$mid = $this->session->userdata('num');
 		$groups = $this->group_m->getsOwned($mid);
 		
 		$data = array();
