@@ -1,7 +1,8 @@
 <div id="room-creater-wrapper">
-	<div>
-		Add a new room for group <?=$gid?>
+	<div id="group-configure-header">
+		<h2>Add a new room <span class="group-name"><?="GROUP_NAME"?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
 	</div>
+	
 	<div id="roomCanvas" class="ui-widget-content">
 		<h3 class="ui-widget-header">Room</h3>		
 	</div>
@@ -22,7 +23,7 @@
 		<input id="seatArray" name="seats[]" type="hidden" />
 		<input name="test" type="hidden" value="1212" />
 		<input id="submitBtn" type="submit" value="create" class="button" onclick="roomSubmit()" 
-			create_url="<?=site_url('/room/create')?>"
+			create_url="<?=site_url('/room/create/'.$gid)?>"
 			redirect_url="<?=site_url('/group/configure/'.$gid)?>"/>
 	</div>
 </div>

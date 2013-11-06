@@ -12,6 +12,17 @@ class Room_m extends CI_MODEL {
 	
 	function getsByGroup($group_id) {
 		return $this->db->get_where('room', array('group_id'=>$group_id))->result();
-	}	
+	}
+	
+	//XXX: rename to create
+	function createRoom($room_info) {
+		$data = array(
+			'room_name'=>$room_info['room_name'],
+			'group_id'=>$room_info['group_id'],
+		);
+		
+		$this->db->insert('room', $room_info);
+		return $this->db->insert_id();
+	}
 }
 ?>
