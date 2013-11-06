@@ -21,10 +21,8 @@
 	</div>
 	<div id="groups-own">
 		<h2>Groups that <?=$this->session->userdata('name')?> owns</h2>
-		<div class="groups-box">
-			<!-- TEST -->
-			<a class="button" href="<?=site_url(array('group', 'create', $this->session->userdata('num')))?>">Create a new group</a>
-			<!--<a class="button" href="<?=site_url(array('create', 'group', $this->session->userdata('num')))?>">Create a new group</a>-->
+		<div class="groups-box">			
+			<a class="button" href="<?=site_url(array('group', 'createForm'))?>">Create a new group</a>			
 		</div>
 	</div>
 </div>

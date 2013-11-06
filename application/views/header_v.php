@@ -8,6 +8,7 @@
 		<link href="<?=base_url('includes/css/front-page.css')?>" rel="stylesheet" type="text/css">
 		<link href="<?=base_url('includes/css/create.css')?>" rel="stylesheet" type="text/css">
 		<link href="<?=base_url('includes/css/dashboard.css')?>" rel="stylesheet" type="text/css">
+		<link href="<?=base_url('includes/css/group.css')?>" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 		<title>Room Allocator</title>
 	</head>

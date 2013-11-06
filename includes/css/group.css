@@ -1,0 +1,17 @@
+.group-name {
+	color:red;
+}
+
+.user-name {
+	color:blue;
+}
+
+.radio {
+	margin-left: 15px;
+	margin-right: 3px;
+}
+
+.muted {
+	font-style:italic;
+	color:gray;
+}

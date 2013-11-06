@@ -20,6 +20,17 @@ class Group_m extends CI_MODEL {
 	
 	function getByGroupNameAndPW($name, $pw) {
 		return $this->db->get_where('group', array('group_name'=>$name, 'group_pw'=>$pw))->row();
-	}		
+	}
+	
+	function create($owner_id, $name, $pw, $num_seats) {
+		$data = array(
+				'group_owner_id' => $owner_id,
+				'group_name' => $name,
+				'group_pw' => $pw,
+				'selectable_seat_numbers' => $num_seats,
+				);
+		$this->db->insert('group', $data);
+		return $this->db->insert_id();
+	}
 }
 ?>

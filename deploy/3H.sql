@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `3h_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `3h_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('e94b7af09cfbe20aa0c3853dd4a93d25', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383664159, 'a:5:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";}');
+('374654f1281bed60ee37bbc9ecb1c49b', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383737745, 'a:6:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";s:9:"group_now";i:2;}');
 
 DROP TABLE IF EXISTS `allocate_result`;
 CREATE TABLE IF NOT EXISTS `allocate_result` (
@@ -56,8 +56,12 @@ CREATE TABLE IF NOT EXISTS `group` (
   `allocation_done` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_name_UNIQUE` (`group_name`),
+  UNIQUE KEY `group_name` (`group_name`),
   KEY `fk_group_member1_idx` (`group_owner_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+INSERT INTO `group` (`id`, `group_owner_id`, `group_name`, `group_pw`, `selectable_seat_numbers`, `all_members_applied`, `allocation_done`) VALUES
+(2, 1, 'test', '1234', 1, 0, 0);
 
 DROP TABLE IF EXISTS `group_has_member`;
 CREATE TABLE IF NOT EXISTS `group_has_member` (
@@ -79,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 INSERT INTO `member` (`id`, `member_id`, `member_name`, `member_pw`) VALUES
-(4, 'spilist', 'Hwidong Bae', '$2y$10$5VZOSDgyxCQk7pZGdWWC6O/o2Rl2WR8JbN6ElBC46msB4WCZB6beC');
+(1, 'spilist', 'Hwidong Bae', '$2y$10$5VZOSDgyxCQk7pZGdWWC6O/o2Rl2WR8JbN6ElBC46msB4WCZB6beC');
 
 DROP TABLE IF EXISTS `object`;
 CREATE TABLE IF NOT EXISTS `object` (
@@ -115,30 +119,30 @@ CREATE TABLE IF NOT EXISTS `seat` (
 
 
 ALTER TABLE `allocate_result`
-  ADD CONSTRAINT `allocate_result_ibfk_3` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `allocate_result_ibfk_1` FOREIGN KEY (`mem_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `allocate_result_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `room` (`group_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `allocate_result_ibfk_6` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `allocate_result_ibfk_4` FOREIGN KEY (`mem_id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `allocate_result_ibfk_5` FOREIGN KEY (`group_id`) REFERENCES `room` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `application`
-  ADD CONSTRAINT `fk_application_member1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_application_seat1` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `application_ibfk_2` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `application_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `group`
-  ADD CONSTRAINT `fk_group_member1` FOREIGN KEY (`group_owner_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `group_ibfk_1` FOREIGN KEY (`group_owner_id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `group_has_member`
-  ADD CONSTRAINT `fk_group_has_member_group1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_group_has_member_member1` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `group_has_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `group_has_member_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `object`
-  ADD CONSTRAINT `fk_object_room1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `object_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `room`
-  ADD CONSTRAINT `fk_room_lab1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `seat`
-  ADD CONSTRAINT `fk_seat_member1` FOREIGN KEY (`seat_owner_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_seat_room1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `seat_ibfk_2` FOREIGN KEY (`seat_owner_id`) REFERENCES `member` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `seat_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
