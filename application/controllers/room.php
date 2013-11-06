@@ -29,8 +29,9 @@ class Room extends MY_Controller {
 		}
 		
 		//ToDo: 어느 그룹으로 되돌려보낼것인지
+		//XXX: redirect가.... 여기가 아니네..... 이거 ajax 였음...
 		//redirect('/group/configure/124123');
-		redirect('/application/make_new/1/1');
+		//redirect('/application/make_new/1/1');
 	}	
 }
 ?>

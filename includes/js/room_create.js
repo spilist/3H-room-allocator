@@ -96,7 +96,7 @@ $(function() {
       		top:ui.position.top - ofs.top,
       		left:ui.position.left - ofs.left,
       	});
-      	$("<div><span>seat</span></div>").addClass("seat-img").appendTo(seat);
+      	//$("<div><span>seat</span></div>").addClass("seat-img").appendTo(seat);
 
       	seat.appendTo(this);
 		seatCount++;
@@ -106,7 +106,7 @@ $(function() {
     });
   });
   
-  function asubmit() {
+  function roomSubmit() {
   	console.log("eafe");
   	console.log($("#roomCanvas").children());
   	var children = $("#roomCanvas").children();
@@ -130,11 +130,13 @@ $(function() {
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
-  	console.log($("#submitBtn").attr("site_url"));
+  	console.log($("#submitBtn").attr("create_url"));
   	
-  	$.post($("#submitBtn").attr("site_url"), postValues, function(data) {
+  	$.post($("#submitBtn").attr("create_url"), postValues, function(data) {
   		console.log(data);
   		//window.location.replace($("#submitBtn").data("site_url"));
+  		//application/make_new/1/1
+  		window.location = $("#submitBtn").attr("redirect_url");
   	});
   	//$.post("./create/room", postValues);
   }
