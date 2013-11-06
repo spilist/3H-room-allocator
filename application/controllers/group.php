@@ -97,7 +97,7 @@ class Group extends MY_Controller {
 					}
 					
 					$count = count($candidates);
-					echo $count;
+					//echo $count;
 					
 					if ($count > 0) {
 						$selected = rand(0, $count-1);
