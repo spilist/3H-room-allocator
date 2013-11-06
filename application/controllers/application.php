@@ -4,6 +4,7 @@ class Application extends MY_Controller {
 		
 	function __construct() {
 		parent::__construct();
+		$this->load->model('room_m');
 		$this->load->model('seat_m');
 	}
 	
@@ -24,16 +25,18 @@ class Application extends MY_Controller {
 	}
 	
 	function make_new($mid, $gid) {
+    	$rooms = $this->room_m->getsByGroup($gid);
+		$roomArray = array();
 		
-		/*if ($this->session->userdata('is_login')) {
-			redirect('/');    		
-    	}*/
-		$seats = $this->seat_m->getsByRoom(1);
-		$data['seats'] = $seats;//json_encode($seats);
+		foreach ($rooms as $room) {
+			$seats = $this->seat_m->getsByRoom($room->id);
+			$roomArray[] = $seats;
+		}
 		
-		/*foreach ($seats as $seat) {
-			echo $seat->seat_location_x;
-		}*/
+		$data = array(
+			'roomArray'=>$roomArray,
+			'roomCount'=>count($rooms), //XXX: debug
+		);
 		
 		$this->load->view('application_v', $data);
 	}
