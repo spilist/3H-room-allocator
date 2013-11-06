@@ -3,7 +3,7 @@
 		<h2>Groups that <?=$this->session->userdata('name')?> is in</h2>
 		<div class="groups-box">
 <?php foreach ($groupsIn as $gin): ?>
-			<div class="group group-in">
+			<div class="group">
 				<div class="group-box">
 					<span>Group name: <?=$gin['gname']?></span>				
 					<span>Group owner: <?=$gin['gowner']?></span>
@@ -16,13 +16,42 @@
 				</div>
 			</div>
 <?php endforeach;?>
-			<a class="button" href="<?=site_url(array('group', 'join', $this->session->userdata('num')))?>">Join a new group</a>			
+			<a class="btn" href="<?=site_url(array('group', 'join', $this->session->userdata('num')))?>">Join a new group</a>			
 		</div>
 	</div>
 	<div id="groups-own">
 		<h2>Groups that <?=$this->session->userdata('name')?> owns</h2>
-		<div class="groups-box">			
-			<a class="button" href="<?=site_url(array('group', 'createForm'))?>">Create a new group</a>			
-		</div>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Group name</th>
+					<th>Information</th>
+				</tr>
+			</thead>
+			<tbody>
+<?php $group_index = 1;?>
+<?php foreach ($groupsOwn as $gown): ?>
+				<tr>
+					<td><?=$group_index++?></td>
+					<td><a href="<?=site_url('/group/configure/'.$gown['gid'])?>"><?=$gown['gname']?></a></td>
+					<td>
+	<?php if ($gown['all_mem_applied']):?>
+						<span class="label">All members applied</span>
+	<?php else:?>
+						<span class="label label-warning">Some members are not applied yet</span>
+	<?php endif;?>
+					</td>				
+				</tr>
+<?php endforeach;?>
+				<tr>
+					<td><?=$group_index++?></td>
+					<td class="muted">An empty group</td>
+					<td>
+						<a class="btn btn-small" href="<?=site_url(array('group', 'create', $this->session->userdata('num')))?>">Create a new group</a>
+					</td>
+				</tr>
+			</tbody>					
+		</table>
 	</div>
 </div>

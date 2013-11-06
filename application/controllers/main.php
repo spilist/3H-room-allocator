@@ -79,9 +79,6 @@ class Main extends MY_Controller {
 			array_push($data, array(
 					'gid' => $group->id,
 					'gname' => $group->group_name,
-					'gowner' => $this->member_m->getName($group->group_owner_id),
-					'gpassword' => $group->group_pw,
-					'g_selectable_seats' => $group->selectable_seat_numbers,
 					'all_mem_applied' => $group->all_members_applied,
 					'alloc_done' => $group->allocation_done,
 					));

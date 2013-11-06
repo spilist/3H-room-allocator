@@ -3,9 +3,7 @@
 class Room extends MY_Controller {
     function __construct() {
         parent::__construct();
-		$this->load->helper('form');
-		$this->load->model('seat_m');
-		$this->form_validation->set_error_delimiters('<dd class="error">','</dd>');		
+		$this->load->model('seat_m');			
     }
 	
 	function index() {
