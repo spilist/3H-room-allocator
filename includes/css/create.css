@@ -1,12 +1,19 @@
+.room {
+	width: 400px;
+	height: 300px;
+	padding: 5px;
+	margin: 10px;
+}
+
+.room h3 {
+	text-align: center;
+	margin: 0;
+}
+
 #roomCanvas {
 	width: 400px;
 	height: 300px;
 	padding: 0.5em;
-}
-
-.room {
-	width: 400px;
-	height: 300px;
 }
 
 #roomCanvas h3 {
@@ -15,11 +22,11 @@
 }
 
 #roomCanvas .ui-selecting {
-	background: #ccc
+	background: #ccc;
 }
 
 #roomCanvas .ui-selected {
-	background: #999
+	background: #999;
 }
 
 #seatBtn {
@@ -46,6 +53,10 @@
 	padding: 0.5em;
 }
 
+.seat-selected {
+	background: #990 !important;
+}
+
 .door {
 	width: 50px;
 	height: 50px;
@@ -57,7 +68,7 @@
 	height: 50px;
 	background-image: url('../img/icon-seat.png');
 	background-size: cover;
-	background-repeat: no-rerpeat;
+	background-repeat: no-repeat;
 }
 
 .door-img {
@@ -65,6 +76,7 @@
 	height: 50px;
 	background-image: url('../img/icon-door.png');
 	background-size: cover;
-	background-repeat: no-rerpeat;
+	background-repeat: no-repeat;
 }
+
 
