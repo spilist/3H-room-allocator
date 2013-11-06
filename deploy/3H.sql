@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `3h_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `3h_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('f46b9ee21f7f8a39508c4834b8d342a2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383740200, 'a:5:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";}');
+('9f4fcc9436df1836dc94401c64622626', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36', 1383746219, 'a:5:{s:9:"user_data";s:0:"";s:8:"is_login";b:1;s:3:"num";i:1;s:4:"name";s:11:"Hwidong Bae";s:2:"id";s:7:"spilist";}');
 
 DROP TABLE IF EXISTS `allocate_result`;
 CREATE TABLE IF NOT EXISTS `allocate_result` (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `group` (
   `group_pw` varchar(45) NOT NULL,
   `selectable_seat_numbers` int(11) NOT NULL,
   `member_limit` int(11) NOT NULL DEFAULT '0',
-  `all_members_applied` tinyint(1) NOT NULL DEFAULT '0',
+  `members_applied` int(11) NOT NULL DEFAULT '0',
   `allocation_done` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_name_UNIQUE` (`group_name`),
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `group` (
   KEY `fk_group_member1_idx` (`group_owner_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
-INSERT INTO `group` (`id`, `group_owner_id`, `group_name`, `group_pw`, `selectable_seat_numbers`, `member_limit`, `all_members_applied`, `allocation_done`) VALUES
+INSERT INTO `group` (`id`, `group_owner_id`, `group_name`, `group_pw`, `selectable_seat_numbers`, `member_limit`, `members_applied`, `allocation_done`) VALUES
 (1, 1, 'test', '1234', 1, 0, 0, 0);
 
 DROP TABLE IF EXISTS `group_has_member`;
