@@ -1,6 +1,6 @@
 <div id="room-creater-wrapper">
 	<div>
-		Add a new room
+		Add a new room for group <?=$gid?>
 	</div>
 	<div id="roomCanvas" class="ui-widget-content">
 		<h3 class="ui-widget-header">Room</h3>		
@@ -23,6 +23,6 @@
 		<input name="test" type="hidden" value="1212" />
 		<input id="submitBtn" type="submit" value="create" class="button" onclick="roomSubmit()" 
 			create_url="<?=site_url('/room/create')?>"
-			redirect_url="<?=site_url('/application/make_new/1/1')?>"/>
+			redirect_url="<?=site_url('/group/configure/'.$gid)?>"/>
 	</div>
 </div>

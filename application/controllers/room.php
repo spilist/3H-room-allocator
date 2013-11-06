@@ -12,8 +12,13 @@ class Room extends MY_Controller {
 		redirect('/main/dashboard');
 	}
 	
-	function add() {
-		$this->load->view('room_add_v');
+	//function add() {
+	//	$this->load->view('room_add_v');
+	//}
+	
+	function add($gid) {
+		$data = array('gid'=>$gid);
+		$this->load->view('room_add_v', $data);
 	}
 	
 	function create() {		
