@@ -37,7 +37,7 @@
 		<?php if ($gown['alloc_done']):?>
 						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/')?>">See the result</a>
 		<?php else:?>
-						<a class="btn btn-small btn-warning" href="<?=site_url('/group/allocate/')?>">Allocate Now</a>
+						<a class="btn btn-small btn-warning" href="<?=site_url('/group/allocate/'.$gown['gid'])?>">Allocate Now</a>
 		<?php endif;?>
 						<a class="btn btn-small btn-danger" href="<?=site_url('/group/delete/'.$gown['gid'])?>">Delete this group</a>	
 					</td>				

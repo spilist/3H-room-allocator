@@ -8,6 +8,7 @@ class Group extends MY_Controller {
 		$this->form_validation->set_error_delimiters('<dd class="error">','</dd>');
 		$this->load->model('group_m');
 		$this->load->model('room_m');
+		$this->load->model('seat_m');
 	}
 	
 	public function index() {
@@ -64,5 +65,28 @@ class Group extends MY_Controller {
 	
 	function join_new($mid) {
 		
+	}
+	
+	function allocate($gid) {
+		$rooms = $this->room_m->getsByGroup($gid);
+		$roomArray = array();
+		
+		foreach ($rooms as $room) {
+			$seats = $this->seat_m->getsByRoom($room->id);
+			$roomArray[] = $seats;
+		}
+		
+		$data = array(
+			'roomArray'=>$roomArray,
+			'roomCount'=>count($rooms), //XXX: debug
+			'gid'=>$gid,
+		);
+		
+		$this->load->view('group_allocate_v', $data);
+		//alloc_result($gid);
+	}
+	
+	function alloc_result($gid) {
+		//$this->load->view('group_allocate_v');//, $data);
 	}
 }
