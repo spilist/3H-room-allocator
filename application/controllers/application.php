@@ -48,7 +48,7 @@ class Application extends MY_Controller {
 		$seats = json_decode($this->input->post('seats'));
 		$priority = 1;
 		foreach ($seats as $seat) {
-			$this->application_m->create($mid, $gid, $seat->id, $$priority++);
+			$this->application_m->create($mid, $gid, (int)$seat, $priority++);
 		}
 	}
 }

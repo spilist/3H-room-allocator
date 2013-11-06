@@ -53,43 +53,19 @@ function doApply()
 	console.log(selected);
 	
 	//XXX: 아... 이게 아니고 seat id 를 가지고 있어야 하고...... 그거에 맞게 apply 가 되어야 할듯 ㅇㅇ
+	var seatArray = [];
 	var postValues = {};
-	postValues['seats'] = JSON.stringify(selected);
+	
+	for (var i = 0; i < selected.length; i++) {
+		var seat = $(selected[i]);
+		seatArray.push(seat.attr("sid"));
+	}
+	
+	postValues['seats'] = JSON.stringify(seatArray);
 	console.log(postValues['seats']);
 	
-	$.post($("#applyBtn").attr("create_url"), postValues, function(data) {
+	$.post($("#applyBtn").attr("action_url"), postValues, function(data) {
   		console.log(data);
-  		//window.location = $("#submitBtn").attr("redirect_url");
+  		window.location = $("#applyBtn").attr("redirect_url");
   	});
-	
-	/*
-	var children = $("#roomCanvas").children();
-  	var seatArray = []; //arr? new Array();
-  	var postValues = {}; //map? ... 아 이게 json 이랑 똑같네? ........
-  	var canvasOffset = $("#roomCanvas").offset(); 
-  	
-  	for (var i = 0; i < children.length; i++) {
-  		//console.log(children[i]);
-  		var child = $(children[i]);
-		if(child.hasClass("seat")) {
-			var seatInfo = {};
-			seatInfo['seat_location_x'] = child.offset().left - canvasOffset.left;
-			seatInfo['seat_location_y'] = child.offset().top - canvasOffset.top;
-			console.log(seatInfo);
-			seatArray.push(seatInfo);
-		}
-  	}
-  	
-  	postValues['roomJson'] = JSON.stringify(seatArray);
-  	
-  	console.log(seatArray);
-  	console.log(postValues['roomJson']);
-  	console.log($("#submitBtn").attr("create_url"));
-  	
-  	$.post($("#submitBtn").attr("create_url"), postValues, function(data) {
-  		console.log(data);
-  		//window.location.replace($("#submitBtn").data("site_url"));
-  		//application/make_new/1/1
-  		window.location = $("#submitBtn").attr("redirect_url");
-  	});*/
 }

@@ -20,7 +20,7 @@ class Application_m extends CI_MODEL {
 			'group_id' => $gid,
 			'seat_id' => $sid,
 			'seat_priority' => $priority,
-			);
+		);
 		$this->db->insert('application', $data);
 		return $this->db->insert_id();
 	}
