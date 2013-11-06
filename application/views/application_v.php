@@ -1,8 +1,9 @@
 <div id="#select-room-wrapper">
 	<div>
-		<div>Group Name : TEST</div>
-		<div>Select seats from below</div>
-		<button class="button">Apply</button>
+		<div><h2>Select seats from below</h2></div>
+		<button id="applyBtn" class="button" onClick="doApply()" 
+			action_url="<?=site_url('/application/make_newHandler/'.$mid.'/'.$gid)?>"
+			redirect_url="<?=site_url('/')?>">Apply</button>
 	</div>
 		
 	<?php foreach ($roomArray as $seats): ?>

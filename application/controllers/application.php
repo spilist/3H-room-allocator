@@ -6,6 +6,7 @@ class Application extends MY_Controller {
 		parent::__construct();
 		$this->load->model('room_m');
 		$this->load->model('seat_m');
+		$this->load->model('application_m');
 	}
 	
 	public function index() {
@@ -36,8 +37,18 @@ class Application extends MY_Controller {
 		$data = array(
 			'roomArray'=>$roomArray,
 			'roomCount'=>count($rooms), //XXX: debug
+			'mid'=>$mid,
+			'gid'=>$gid,
 		);
 		
 		$this->load->view('application_v', $data);
+	}
+	
+	function make_newHandler($mid, $gid) {
+		$seats = json_decode($this->input->post('seats'));
+		$priority = 1;
+		foreach ($seats as $seat) {
+			$this->application_m->create($mid, $gid, $seat->id, $$priority++);
+		}
 	}
 }
