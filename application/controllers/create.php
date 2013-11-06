@@ -42,8 +42,10 @@ class Create extends MY_Controller {
 				'room_id'=>0, //XXX:use room id
 			));*/
 		}
-		
-		
+	}
+	
+	function group() {
+		$this->load->view('room_create_test_v');
 	}
 }
 ?>
