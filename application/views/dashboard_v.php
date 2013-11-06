@@ -16,7 +16,7 @@
 					<th>Group name</th>
 					<th>Members in group</th>
 					<th>Members applied</th>
-					<th>Allocation Status</th>
+					<th>Operation</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,10 +35,11 @@
 					</td>
 					<td>
 		<?php if ($gown['alloc_done']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/')?>">See the result</span>
+						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/')?>">See the result</a>
 		<?php else:?>
-						<a class="btn btn-small btn-warning" href="<?=site_url('/group/allocate/')?>">Allocate Now</span>
+						<a class="btn btn-small btn-warning" href="<?=site_url('/group/allocate/')?>">Allocate Now</a>
 		<?php endif;?>
+						<a class="btn btn-small btn-danger" href="<?=site_url('/group/delete/'.$gown['gid'])?>">Delete this group</a>	
 					</td>				
 				</tr>
 	<?php endforeach;?>				
