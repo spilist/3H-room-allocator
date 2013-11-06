@@ -20,24 +20,17 @@ class Room extends MY_Controller {
 		$seats = json_decode($this->input->post('roomJson'));
 		
 		foreach ($seats as $seat) {
-			echo $seat->seat_location_x;
 			$seatInfo = array(
 				'seat_location_x'=>(int)$seat->seat_location_x,
 				'seat_location_y'=>(int)$seat->seat_location_y,
 				'room_id'=>1,
 			);
-			
 			$this->seat_m->createSeat($seatInfo);
-			
-			/*$this->seat_m->createSeat(array(
-				'seat_location_x'=>(int)$seat->seat_location_x,
-				'seat_location_y'=>(int)$seat->seat_location_y,
-				'room_id'=>0, //XXX:use room id
-			));*/
 		}
 		
 		//ToDo: 어느 그룹으로 되돌려보낼것인지
 		//redirect('/group/configure/124123');
+		redirect('/application/make_new/1/1');
 	}	
 }
 ?>

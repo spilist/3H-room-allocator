@@ -35,6 +35,6 @@ class Application extends MY_Controller {
 			echo $seat->seat_location_x;
 		}*/
 		
-		$this->load->view('select_v', $data);
+		$this->load->view('application_v', $data);
 	}
 }
