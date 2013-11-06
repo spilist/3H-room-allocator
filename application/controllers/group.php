@@ -9,6 +9,8 @@ class Group extends MY_Controller {
 		$this->load->model('group_m');
 		$this->load->model('room_m');
 		$this->load->model('seat_m');
+		$this->load->model('application_m');
+		$this->load->model('member_m');
 	}
 	
 	public function index() {
@@ -68,25 +70,106 @@ class Group extends MY_Controller {
 	}
 	
 	function allocate($gid) {
+		$allocatedMembers = array();
+		$rooms = $this->room_m->getsByGroup($gid);
+		$priority = 1; //TODO: to max
+		
+		//XXX: clear for test
+		foreach ($rooms as $room) {
+			$seats = $this->seat_m->getsByRoom($room->id);
+			foreach ($seats as $seat) {
+				$this->seat_m->setOwner($seat->id, null);
+			}
+		}
+		
+		//XXX: fix to max room config
+		for ($priority = 1; $priority <= 5; $priority++) {
+			foreach ($rooms as $room) {
+				$seats = $this->seat_m->getsByRoom($room->id);
+				
+				foreach ($seats as $seat) {
+					$applications = $this->application_m->getsBySeatAndPriority($seat->id, $priority);
+					$candidates = array();
+					
+					foreach ($applications as $application) {
+						if (in_array($application->member_id, $allocatedMembers) == FALSE)
+							$candidates[] = $application->member_id;
+					}
+					
+					$count = count($candidates);
+					echo $count;
+					
+					if ($count > 0) {
+						$selected = rand(0, $count-1);
+						$allocatedMembers[] = $candidates[$selected];
+						$this->seat_m->setOwner($seat->id, $candidates[$selected]);
+						//TODO: maintain alloc_result_m
+					}
+				}		
+			}
+		}
+		
+		// TODO: handle not allocated members
+		// Do after join finished
+		
+		$this->alloc_result($gid);
+	}
+	
+	function allocate_simple($gid) {
+		$allocatedMembers = array();
+		$rooms = $this->room_m->getsByGroup($gid);
+		$priority = 1; //TODO: to max
+		
+		foreach ($rooms as $room) {
+			$seats = $this->seat_m->getsByRoom($room->id);
+			
+			foreach ($seats as $seat) {
+				$applications = $this->application_m->getsBySeatAndPriority($seat->id, $priority);
+				$candidates = array();
+				
+				foreach ($applications as $application) {
+					if (in_array($application->member_id, $allocatedMembers) == FALSE)
+						$candidates[] = $application->member_id;
+				}
+				
+				$count = count($candidates);
+				echo $count;
+				
+				if ($count > 0) {
+					$selected = rand(0, $count-1);
+					$allocatedMembers[] = $candidates[$selected];
+					$this->seat_m->setOwner($seat->id, $candidates[$selected]);
+					//TODO: maintain alloc_result_m
+				}
+			}		
+		}
+		
+		$this->alloc_result($gid);
+	}
+	
+	function alloc_result($gid) {
 		$rooms = $this->room_m->getsByGroup($gid);
 		$roomArray = array();
 		
 		foreach ($rooms as $room) {
 			$seats = $this->seat_m->getsByRoom($room->id);
+			
+			// Find names
+			foreach ($seats as $seat) {
+				if ($seat->seat_owner_id) {
+					$seat->seat_owner_name = $this->member_m->getName($seat->seat_owner_id)->member_name;	
+				} else {
+					$seat->seat_owner_name = "empty";
+				}
+			}
+			
 			$roomArray[] = $seats;
 		}
 		
 		$data = array(
 			'roomArray'=>$roomArray,
-			'roomCount'=>count($rooms), //XXX: debug
-			'gid'=>$gid,
 		);
 		
 		$this->load->view('group_allocate_v', $data);
-		//alloc_result($gid);
-	}
-	
-	function alloc_result($gid) {
-		//$this->load->view('group_allocate_v');//, $data);
 	}
 }

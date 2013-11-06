@@ -32,5 +32,10 @@ class Seat_m extends CI_MODEL {
 		$this->db->insert('seat', $data);
 		return $this->db->insert_id();
 	}
+	
+	function setOwner($sid, $seat_owner_id) {
+		$this->db->where('id', $sid);
+		$this->db->update('seat', array('seat_owner_id'=>$seat_owner_id));
+	}
 }
 ?>

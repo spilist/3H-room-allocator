@@ -14,6 +14,11 @@ class Application_m extends CI_MODEL {
 		return $this->db->get_where('application', array('member_id'=>$mem_id, 'group_id'=>$gid))->result();
 	}
 	
+	// TODO: and not completed.................???? people???? mid......
+	function getsBySeatAndPriority($sid, $priority) {
+		return $this->db->get_where('application', array('seat_id'=>$sid, 'seat_priority'=>$priority))->result();
+	}
+	
 	function create($mid, $gid, $sid, $priority) {
 		$data = array(
 			'member_id' => $mid,

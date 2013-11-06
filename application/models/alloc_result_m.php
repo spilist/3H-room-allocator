@@ -12,6 +12,10 @@ class Alloc_result_m extends CI_MODEL {
 	
 	function getSeat($mid, $gid) {
 		return $this->db->get_where('allocate_result', array('group_id'=>$gid, 'mem_id'=>$mid))->row();
-	}		
+	}
+	
+	function create($mid, $gid) {
+		//TODO:
+	}	
 }
 ?>
