@@ -8,10 +8,10 @@
 		<script src="<?=base_url('includes/js/bootstrap.min.js')?>"></script>		
 		<script src="<?=base_url('includes/js/jquery.autogrow.js')?>"></script>
 		<script src="<?=base_url('includes/js/general.js')?>"></script>	
-<?php if (strpos(uri_string(), 'room/add') == 0): ?>
+<?php if (strpos(uri_string(), 'room/add/') == 0): ?>
 		<script src="<?=base_url('includes/js/room_create.js')?>"></script>
 <?php endif;?>
-<?php if (uri_string()=='application/make_new/1/1'): ?>
+<?php if (strpos(uri_string(), 'application/make_new/') == 0): ?>
 		<script src="<?=base_url('includes/js/room_select.js')?>"></script>
 <?php endif;?>
 	</body>
