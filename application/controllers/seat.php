@@ -25,5 +25,5 @@ class Seat extends MY_Controller {
 						);
 			}
 		 */
-	}
+	}		
 }

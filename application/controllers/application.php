@@ -4,6 +4,7 @@ class Application extends MY_Controller {
 		
 	function __construct() {
 		parent::__construct();
+		$this->load->model('seat_m');
 	}
 	
 	public function index() {
@@ -24,5 +25,16 @@ class Application extends MY_Controller {
 	
 	function make_new($mid, $gid) {
 		
+		/*if ($this->session->userdata('is_login')) {
+			redirect('/');    		
+    	}*/
+		$seats = $this->seat_m->getsByRoom(1);
+		$data['seats'] = $seats;//json_encode($seats);
+		
+		/*foreach ($seats as $seat) {
+			echo $seat->seat_location_x;
+		}*/
+		
+		$this->load->view('select_v', $data);
 	}
 }

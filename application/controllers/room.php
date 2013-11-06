@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Create extends MY_Controller {
+class Room extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->helper('form');
@@ -9,21 +9,14 @@ class Create extends MY_Controller {
     }
 	
 	function index() {
-		/*if ($this->session->userdata('is_login')) {
-			redirect('/');    		
-    	}*/
-		
-		$this->load->view('create_v');
+		redirect('/main/dashboard');
 	}
 	
-	//XXX: rename
-	function room() {
-		/*if ($this->session->userdata('is_login')) {
-			redirect('/');
-    	}*/
-		
-		//TODO: form_validation
-		
+	function add() {
+		$this->load->view('room_add_v');
+	}
+	
+	function create() {		
 		$seats = json_decode($this->input->post('roomJson'));
 		
 		foreach ($seats as $seat) {
@@ -42,10 +35,9 @@ class Create extends MY_Controller {
 				'room_id'=>0, //XXX:use room id
 			));*/
 		}
-	}
-	
-	function group() {
-		$this->load->view('room_create_test_v');
-	}
+		
+		//ToDo: 어느 그룹으로 되돌려보낼것인지
+		//redirect('/group/configure/124123');
+	}	
 }
 ?>
