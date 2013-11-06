@@ -48,7 +48,7 @@
 					<td><?=$group_index++?></td>
 					<td class="muted">An empty group</td>
 					<td>
-						<a class="btn btn-small" href="<?=site_url(array('group', 'create', $this->session->userdata('num')))?>">Create a new group</a>
+						<a class="btn btn-small btn-info" href="<?=site_url(array('group', 'create', $this->session->userdata('num')))?>">Create a new group</a>
 					</td>
 				</tr>
 			</tbody>					
