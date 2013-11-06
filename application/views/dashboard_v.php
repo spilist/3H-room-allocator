@@ -55,7 +55,7 @@
 <?php else:?>
 		<div class="groups-header clearfix">
 			<h2>Groups <span class="user-name"><?=$this->session->userdata('name')?></span> is in</h2>
-			<a class="btn btn-small btn-danger" href="<?=site_url(array('group', 'join', $this->session->userdata('num')))?>">Join a new group</a>
+			<a data-toggle="modal" href="#join-modal" class="btn btn-small btn-danger">Join a new group</a>
 		</div>
 		<table class="table table-condensed">
 			<thead>
@@ -80,7 +80,7 @@
 					</td>
 					<td>
 		<?php if ($gin['apps_exist']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url(array('application', 'show', $this->session->userdata('num'), $gin['gid']))?>">Open</a>
+						<a class="btn btn-small btn-primary" href="<?=site_url(array('application', 'show', $this->session->userdata('num'), $gin['gid']))?>">Open & modify</a>
 		<?php else:?>
 						<a class="btn btn-small btn-warning" href="<?=site_url(array('application', 'make_new', $this->session->userdata('num'), $gin['gid']))?>">Apply now</a>
 		<?php endif;?>

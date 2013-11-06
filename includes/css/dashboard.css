@@ -15,6 +15,10 @@
 	border-bottom: 2px dashed black;
 }
 
+#groups-in {
+	padding-top: 10px;
+}
+
 .ask-empty {
 	font-size: 20px;
 	font-weight: bold;

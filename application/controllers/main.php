@@ -47,7 +47,7 @@ class Main extends MY_Controller {
 			$gid = $gidIn->group_id;
 			$group = $this->group_m->get($gid);
 			$gname = $group->group_name;			
-			$gowner_name = $this->member_m->getName($group->group_owner_id);
+			$gowner_name = $this->member_m->getName($group->group_owner_id)->member_name;
 			
 			// 내가 이 그룹에 어플리케이션을 넣었는가?
 			$apps = $this->application_m->getsByMember($mid, $gid);
@@ -59,6 +59,7 @@ class Main extends MY_Controller {
 			if (empty($seat)) $seat_exist = false;
 			else $seat_exist = true;			
 			
+			$num_members = count($this->group_has_mem_m->getsMembersInGroup($group->id));
 			array_push($groups_data, array(
 					'gid' => $gid,
 					'gname' => $gname,

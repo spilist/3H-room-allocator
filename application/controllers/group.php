@@ -61,4 +61,8 @@ class Group extends MY_Controller {
 				);
 		$this->load->view('group_configure_v', $data);
 	}
+	
+	function join_new($mid) {
+		
+	}
 }
