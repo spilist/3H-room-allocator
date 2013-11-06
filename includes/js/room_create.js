@@ -60,7 +60,8 @@ $(function() {
       		return;
       	}
       	
-      	var seat = $( "<div><p>seat</p></div>" ).addClass("seat").addClass("ui-widget-content");
+      	//var seat = $( "<div><span>seat</span></div>" ).addClass("seat").addClass("ui-widget-content");
+      	var seat = $( "<div></div>" ).addClass("seat").addClass("ui-widget-content");
       	seat.draggable({
       		grid: [ 10, 10 ],
       		start: function( event, ui ) {
@@ -95,6 +96,7 @@ $(function() {
       		top:ui.position.top - ofs.top,
       		left:ui.position.left - ofs.left,
       	});
+      	$("<div><span>seat</span></div>").addClass("seat-img").appendTo(seat);
 
       	seat.appendTo(this);
 		seatCount++;
