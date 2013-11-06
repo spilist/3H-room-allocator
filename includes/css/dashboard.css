@@ -1,20 +1,33 @@
-#dashboard-wrapper {	
-	text-align:center;
+#dashboard-wrapper {
+	text-align: left;
 }
 
-.groups-box {
-	border:1px solid black;
-	min-height:50px;
-	text-align:left;
+.groups-header > h2 {
+	float: left;
 }
-
-#groups-in {
-	width:480px;
-	float:left;
+.groups-header .btn {
+	float: right;
+	margin-top: 21px;
 }
 
 #groups-own {
-	float:right;
-	width:480px;
+	padding-bottom: 10px;
+	border-bottom: 2px dashed black;
 }
 
+.ask-empty {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px 0px;
+	width: 701px;
+	margin: 10px auto;
+	background-color: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}

@@ -63,6 +63,8 @@ class Main extends MY_Controller {
 					'gid' => $gid,
 					'gname' => $gname,
 					'gowner' => $gowner_name,
+					'num_members' => $num_members,
+					'max_members' => $group->member_limit,
 					'apps_exist' => $apps_exist,
 					'seat_exist' => $seat_exist,
 					));			
@@ -76,10 +78,13 @@ class Main extends MY_Controller {
 		
 		$data = array();
 		foreach ($groups as $group) {
+			$num_members = count($this->group_has_mem_m->getsMembersInGroup($group->id));
 			array_push($data, array(
 					'gid' => $group->id,
 					'gname' => $group->group_name,
-					'all_mem_applied' => $group->all_members_applied,
+					'num_members' => $num_members,
+					'max_members' => $group->member_limit,
+					'mem_applied' => $group->members_applied,
 					'alloc_done' => $group->allocation_done,
 					));
 		}

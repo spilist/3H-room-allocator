@@ -22,10 +22,10 @@
 <?php if ($this->session->userdata('is_login')): ?>
 					<ul id="user-actions">						
 						<li class="user-signed-in">
-							<a id="dashboard" title="Go to Dashboard" href="<?=site_url('/main/dashboard/')?>"><?=$this->session->userdata('name')?></a>
+							<a id="dashboard" class="tooltipped" data-toggle="tooltip" data-placement="bottom" title="Go to Dashboard" href="<?=site_url('/main/dashboard/')?>"><?=$this->session->userdata('name')?></a>
 						</li>
 						<li>
-							<a id="profile-logout" title="Sign Out" href="<?=site_url('/auth/logout')?>">
+							<a id="profile-logout" class="tooltipped" data-toggle="tooltip" data-placement="bottom" title="Sign Out" href="<?=site_url('/auth/logout')?>">
 								<span class="octicon octicon-log-out"></span>
 							</a>	
 						</li>										
