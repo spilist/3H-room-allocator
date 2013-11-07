@@ -42,6 +42,6 @@ class Room extends MY_Controller {
 		// Increase seat count
 		$limit = $this->group_m->getMemberLimit($gid) + count($seats);
 		$this->group_m->updateMemberLimit($gid, $limit);
-	}	
+	}
 }
 ?>

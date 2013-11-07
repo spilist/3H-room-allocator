@@ -189,4 +189,14 @@ class Group extends MY_Controller {
 		$this->group_has_mem_m->leave($mid, $gid);
 		redirect("/");
 	}
+	
+	function delete($gid) {
+		$group = $this->group_m->get($gid);
+		if ($this->session->userdata('num') != $group->id) {
+			redirect("/");
+		}
+		
+		$this->group_m->delete($gid);
+		redirect("/");		
+	}
 }
