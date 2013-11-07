@@ -4,7 +4,8 @@ class Room extends MY_Controller {
     function __construct() {
         parent::__construct();
 		$this->load->model('room_m');
-		$this->load->model('seat_m');			
+		$this->load->model('seat_m');
+		$this->load->model('group_m');
     }
 	
 	function index() {
@@ -33,6 +34,10 @@ class Room extends MY_Controller {
 			);
 			$this->seat_m->createSeat($seatInfo);
 		}
+		
+		// Increase seat count
+		$limit = $this->group_m->getMemberLimit($gid) + count($seats);
+		$this->group_m->updateMemberLimit($gid, $limit);
 	}	
 }
 ?>

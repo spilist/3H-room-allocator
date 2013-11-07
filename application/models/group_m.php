@@ -32,5 +32,14 @@ class Group_m extends CI_MODEL {
 		$this->db->insert('group', $data);
 		return $this->db->insert_id();
 	}
+	
+	function getMemberLimit($gid) {
+		return $this->db->get_where('group', array('id'=>$gid))->row()->member_limit;
+	}
+	
+	function updateMemberLimit($gid, $limit) {
+		$this->db->where('id', $gid);
+		$this->db->update('group', array('member_limit'=>$limit));
+	}
 }
 ?>
