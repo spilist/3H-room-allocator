@@ -5,6 +5,9 @@ $(".join-btn").click(function() {
 });
 
 $(".join-submit").click(function() {
+	
+	//alert("click");
+	
 	var posting = $.ajax({
 		type: "POST",
 		data: $("#join-form").serialize(),
@@ -17,8 +20,9 @@ $(".join-submit").click(function() {
 			$(".flash-messages").removeClass("hidden");
 			$(".join-msg").html(ret['msg']);
 		}
-		
+		else 
+		{
 			location.reload();
-						
+		}
 	});		
 });
