@@ -3,8 +3,9 @@
 class Room extends MY_Controller {
     function __construct() {
         parent::__construct();
+		$this->load->model('group_m');
 		$this->load->model('room_m');
-		$this->load->model('seat_m');			
+		$this->load->model('seat_m');
     }
 	
 	function index() {
@@ -12,14 +13,18 @@ class Room extends MY_Controller {
 	}
 	
 	function add($gid) {
-		$data = array('gid'=>$gid);
+		$group = $this->group_m->get($gid);
+		$data = array(
+			'gid'=>$gid,
+			'group_name'=>$group->group_name,
+			);
 		$this->load->view('room_add_v', $data);
 	}
 	
 	function create($gid) {
 		// Create a room
 		$rid = $this->room_m->createRoom(array(
-			'room_name'=>"TEMPORAL_ROOM_NAME",
+			'room_name'=>$this->input->post('roomName'),
 			'group_id'=>$gid,
 		));
 		
@@ -33,6 +38,10 @@ class Room extends MY_Controller {
 			);
 			$this->seat_m->createSeat($seatInfo);
 		}
+		
+		// Increase seat count
+		$limit = $this->group_m->getMemberLimit($gid) + count($seats);
+		$this->group_m->updateMemberLimit($gid, $limit);
 	}	
 }
 ?>

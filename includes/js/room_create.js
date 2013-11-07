@@ -62,35 +62,7 @@ $(function() {
       	
       	//var seat = $( "<div><span>seat</span></div>" ).addClass("seat").addClass("ui-widget-content");
       	var seat = $( "<div></div>" ).addClass("seat").addClass("ui-widget-content");
-      	seat.draggable({
-      		grid: [ 10, 10 ],
-      		start: function( event, ui ) {
-      			console.log("startstart");
-      			startOfs = ui.offset;
-      		},
-      		drag: function( event, ui ) {
-      			/*if(selected) {
-      				for(var i = 0; i < selected.length; i++) {
-      					var selectedObj = $(selected[i]);
-      					var selectedObjOfs = selectedObj.offset();
-      					console.log(selectedObjOfs);
-      					console.log(ui.offset);
-      					console.log(startOfs);
-      					console.log("selectedObjOfs");
-      					if( !selectedObj.is(this) ) {
-      						console.log("diff:");
-      						console.log(ui.offset.top - startOfs.top);
-      						console.log(ui.offset.left - startOfs.left);
-      						selectedObj.css({
-      							top: (ui.offset.top - startOfs.top),
-      							left: (ui.offset.left - startOfs.left)
-      						});
-      					}
-      				}
-      				//console.log(ui.offset);
-      			}*/
-      		}
-      	});
+      	seat.draggable({ grid: [ 10, 10 ] });
       	seat.css({
       		position:"absolute",
       		top:ui.position.top - ofs.top,
@@ -110,8 +82,8 @@ $(function() {
   	console.log("eafe");
   	console.log($("#roomCanvas").children());
   	var children = $("#roomCanvas").children();
-  	var seatArray = []; //arr? new Array();
-  	var postValues = {}; //map? ... 아 이게 json 이랑 똑같네? ........
+  	var seatArray = []; //arr
+  	var postValues = {}; //map
   	var canvasOffset = $("#roomCanvas").offset(); 
   	
   	for (var i = 0; i < children.length; i++) {
@@ -126,7 +98,8 @@ $(function() {
 		}
   	}
   	
-  	postValues['roomJson'] = JSON.stringify(seatArray);
+  	postValues['roomJson'] = JSON.stringify(seatArray); //XXX: rename to seat array
+  	postValues['roomName'] = $("#room_name").val();
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
