@@ -1,9 +1,24 @@
 $(".tooltipped").tooltip();
 
+$(".join-btn").click(function() {
+	$(".flash-messages").addClass("hidden");
+});
+
 $(".join-submit").click(function() {
-	$.ajax({
+	var posting = $.ajax({
 		type: "POST",
 		data: $("#join-form").serialize(),
-		url: "/room_allocator/index.php/group/join_new/"+$("#join-modal-label").attr("mid"),
-	});
+		url: $("#join-form").attr("action"),
+		dataType: 'json',
+	}); 
+	
+	posting.done(function(ret) {
+		if (ret['error'] == true) {
+			$(".flash-messages").removeClass("hidden");
+			$(".join-msg").html(ret['msg']);
+		}
+		
+			location.reload();
+						
+	});		
 });

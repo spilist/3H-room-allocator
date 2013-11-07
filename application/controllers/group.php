@@ -11,6 +11,7 @@ class Group extends MY_Controller {
 		$this->load->model('seat_m');
 		$this->load->model('application_m');
 		$this->load->model('member_m');
+		$this->load->model('group_has_mem_m');
 	}
 	
 	public function index() {
@@ -29,11 +30,14 @@ class Group extends MY_Controller {
 			$this->createForm('errored');
 		}
 		else {
-			$group_id = $this->group_m->create($this->session->userdata('num'), $this->input->post('group_name'), $this->input->post('group_pw'), $this->input->post('num_seats'));
+			$mid = $this->session->userdata('num');
+			$gid = $this->group_m->create($mid, $this->input->post('group_name'), $this->input->post('group_pw'), $this->input->post('num_seats'));
+			
+			$this->group_has_mem_m->putMemInGroup($mid, $gid);
 			$this->session->set_userdata(array(
-							'group_now'=>$group_id,
+							'group_now'=>$gid,
 							));			
-			redirect('/group/configure/'.$group_id);
+			redirect('/group/configure/'.$gid);
 		}
 	}
 	
@@ -63,10 +67,6 @@ class Group extends MY_Controller {
 				'rooms' => $rooms_data,
 				);
 		$this->load->view('group_configure_v', $data);
-	}
-	
-	function join_new($mid) {
-		
 	}
 	
 	function allocate($gid) {
@@ -171,5 +171,10 @@ class Group extends MY_Controller {
 		);
 		
 		$this->load->view('group_allocate_v', $data);
+	}
+	
+	function leave($mid, $gid) {
+		$this->group_has_mem_m->leave($mid, $gid);
+		redirect("/");
 	}
 }

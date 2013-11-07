@@ -50,10 +50,13 @@
 	<div id="join-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="join-modal-label" aria-hidden="true" style="display: none;">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h2 id="join-modal-label" mid="<?=$this->session->userdata('num')?>">Join a new group in RAFA</h2>
+			<h2 id="join-modal-label">Join a new group in RAFA</h2>
 		</div>
 		<div class="modal-body">
-			<form id="join-form" accept-charset="UTF-8" autocomplete="off" method="post">
+			<div class="flash-messages hidden">
+				<div class="flash flash-error join-msg"></div>
+			</div>
+			<form id="join-form" accept-charset="UTF-8" autocomplete="off" method="post" action="<?=site_url('/ajax/group_join/'.$this->session->userdata('num'))?>">
 				<p>
 					<label autocapitalize="off" for="group_name" name="group_name">Group name</label>
 					<input autocapitalize="off" id="group_name" name="group_name" size="30" type="text">
@@ -62,7 +65,7 @@
 					<label for="group_pw" name="group_pw">Group join password</label>
 					<input id="group_pw" name="group_pw" size="30" type="text">	
 				</p>											
-			</form>
+			</form>			
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary join-submit">Join</button>
@@ -77,16 +80,16 @@
 <?php else:?>
 		<div class="groups-header clearfix">
 			<h2>Groups <span class="user-name"><?=$this->session->userdata('name')?></span> is in</h2>
-			<a data-toggle="modal" href="#join-modal" class="btn btn-small btn-danger">Join a new group</a>
+			<a data-toggle="modal" href="#join-modal" class="btn btn-small btn-info join-btn">Join a new group</a>
 		</div>
 		<table class="table table-condensed">
 			<thead>
 				<tr>
 					<th>#</th>
 					<th>Group name</th>
+					<th>Group owner</th>
 					<th>Members in group</th>
-					<th>Application</th>
-					<th>Seat</th>
+					<th>Operation</th>					
 				</tr>
 			</thead>
 			<tbody>
@@ -95,25 +98,23 @@
 				<tr>
 					<td><?=$group_index++?></td>
 					<td>
-						<span class="label label-important"><?=$gin['gname']?></span> by <span class="user-name"><?=$gin['gowner']?></span> 
+						<span class="label label-important"><?=$gin['gname']?></span> 
 					</td>
+					<td class="user-name"><?=$gin['gowner']?></td>
 					<td>
-						<?=$gown['num_members']?> / <?=$gown['max_members']?>
+						<?=$gin['num_members']?> / <?=$gin['max_members']?>
 					</td>
 					<td>
 		<?php if ($gin['apps_exist']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url(array('application', 'show', $this->session->userdata('num'), $gin['gid']))?>">Open & modify</a>
+						<a class="btn btn-small btn-primary" href="<?=site_url(array('application', 'show', $this->session->userdata('num'), $gin['gid']))?>">Open my application</a>
 		<?php else:?>
-						<a class="btn btn-small btn-warning" href="<?=site_url(array('application', 'make_new', $this->session->userdata('num'), $gin['gid']))?>">Apply now</a>
+						<a class="btn btn-small btn-warning" href="<?=site_url(array('application', 'make_new', $this->session->userdata('num'), $gin['gid']))?>">Apply to this group</a>
 		<?php endif;?>
-					</td>
-					<td>
 		<?php if ($gin['seat_exist']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url(array('seat', 'assigned', $this->session->userdata('num'), $gin['gid']))?>">See the result</a>
-		<?php else:?>
-						<span class="muted">Not allocated yet</span>
+						<a class="btn btn-small btn-primary" href="<?=site_url(array('seat', 'assigned', $this->session->userdata('num'), $gin['gid']))?>">See my seat</a>
 		<?php endif;?>
-					</td>
+						<a class="btn btn-small btn-danger" href="<?=site_url(array('group', 'leave', $this->session->userdata('num'), $gin['gid']))?>">Leave this group</a>
+					</td>												
 				</tr>				
 	<?php endforeach;?>
 			</tbody>

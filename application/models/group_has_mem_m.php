@@ -14,8 +14,33 @@ class Group_has_mem_m extends CI_MODEL {
 		return $this->db->get_where('group_has_member', array('group_id'=>$group_id))->result();
 	}
 	
+	function getMembersNumInGroup($gid) {
+		return $this->db->get_where('group_has_member', array('group_id'=>$group_id))->num_rows();
+	}
+	
 	function getsGroupsOfMember($mem_id) {
 		return $this->db->get_where('group_has_member', array('member_id'=>$mem_id))->result();
-	}		
+	}
+	
+	function isMemInGroup($mid, $gid) {
+		$query = $this->db->get_where('group_has_member', array('member_id'=>$mid, 'group_id'=>$gid));
+		return ($query->num_rows() > 0);
+	}
+	
+	function putMemInGroup($mid, $gid) {
+		$data = array(
+				'group_id' => $gid,
+				'member_id' => $mid,				
+				);
+		$this->db->insert('group_has_member', $data);		
+	}
+
+	function leave($mid, $gid) {
+		$data = array(
+			'group_id' => $gid,
+			'member_id' => $mid,				
+			);
+		$this->db->delete('group_has_member', $data);
+	}
 }
 ?>

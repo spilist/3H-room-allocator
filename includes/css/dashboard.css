@@ -41,11 +41,15 @@
 }
 
 #join-modal label {
-	width: 159px;
+	width: 166px;
 position: relative;
 float: left;
 margin-top: 8px;
 text-align: right;
 margin-right: 12px;
 font-size: 16px;
+}
+
+#join-modal .flash-messages {
+	margin-top:0px;
 }
