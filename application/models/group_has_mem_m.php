@@ -10,8 +10,8 @@ class Group_has_mem_m extends CI_MODEL {
 		return $this->db->get('group_has_member')->result();
 	}
 	
-	function getsMembersInGroup($group_id) {
-		return $this->db->get_where('group_has_member', array('group_id'=>$group_id))->result();
+	function getsMembersInGroup($gid) {
+		return $this->db->get_where('group_has_member', array('group_id'=>$gid))->result();
 	}
 	
 	function getMembersNumInGroup($gid) {

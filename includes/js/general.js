@@ -5,9 +5,6 @@ $(".join-btn").click(function() {
 });
 
 $(".join-submit").click(function() {
-	
-	//alert("click");
-	
 	var posting = $.ajax({
 		type: "POST",
 		data: $("#join-form").serialize(),
