@@ -128,8 +128,8 @@ $(function() {
   	
   	postValues['roomJson'] = JSON.stringify(seatArray); //XXX: rename to seat array
   	postValues['roomName'] = $("#room_name").val();
-  	alert("gegegegegeg");
-  	alert($("#room_name").val());
+  	//alert("gegegegegeg");
+  	//alert($("#room_name").val());
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
