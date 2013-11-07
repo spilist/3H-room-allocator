@@ -31,12 +31,17 @@ class Application extends MY_Controller {
 		
 		foreach ($rooms as $room) {
 			$seats = $this->seat_m->getsByRoom($room->id);
-			$roomArray[] = $seats;
+			$roomInfo = array( //이거 어레이로 안아고 오브젝트로 해도 됨
+				'room_name'=>$room->room_name,
+				'room_width'=>0, //TODO:
+				'room_height'=>0, //TODO:
+				'seats'=>$seats,
+				);
+			$roomArray[] = $roomInfo;//seats;
 		}
 		
 		$data = array(
 			'roomArray'=>$roomArray,
-			'roomCount'=>count($rooms), //XXX: debug
 			'mid'=>$mid,
 			'gid'=>$gid,
 		);

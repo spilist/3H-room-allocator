@@ -163,7 +163,15 @@ class Group extends MY_Controller {
 				}
 			}
 			
-			$roomArray[] = $seats;
+			$roomInfo = array(
+				'room_name'=>$room->room_name,
+				'room_width'=>0, //TODO:
+				'room_height'=>0, //TODO:
+				'seats'=>$seats,
+				);
+				
+			
+			$roomArray[] = $roomInfo;//$seats;
 		}
 		
 		$data = array(
