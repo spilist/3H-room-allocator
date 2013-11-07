@@ -1,6 +1,8 @@
-<div id="room-creater-wrapper">
+<div id="room-creater-wrapper" class="container">
 	<div id="group-configure-header">
-		<h2>Add a new room for <span class="group-name"><?=$group_name?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
+		<h2>Add a new room for <span class="group-name"><?=$group_name?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span>			
+		</h2>
+		<a href="<?=site_url('/')?>" class="btn btn-info">Go back to the dashboard</a>
 	</div>
 	
 	<?php $errored='' ?>

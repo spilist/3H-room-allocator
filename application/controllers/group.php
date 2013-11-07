@@ -163,7 +163,7 @@ class Group extends MY_Controller {
 				if ($seat->seat_owner_id) {
 					$seat->seat_owner_name = $this->member_m->getName($seat->seat_owner_id)->member_name;	
 				} else {
-					$seat->seat_owner_name = "empty";
+					$seat->seat_owner_name = "<span class='muted'>empty</span>";
 				}
 			}
 			
