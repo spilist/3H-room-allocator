@@ -47,10 +47,32 @@
 		</table>		
 <?php endif;?>		
 	</div>
+	<div id="join-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="join-modal-label" aria-hidden="true" style="display: none;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h2 id="join-modal-label" mid="<?=$this->session->userdata('num')?>">Join a new group in RAFA</h2>
+		</div>
+		<div class="modal-body">
+			<form id="join-form" accept-charset="UTF-8" autocomplete="off" method="post">
+				<p>
+					<label autocapitalize="off" for="group_name" name="group_name">Group name</label>
+					<input autocapitalize="off" id="group_name" name="group_name" size="30" type="text">
+				</p>
+				<p>
+					<label for="group_pw" name="group_pw">Group join password</label>
+					<input id="group_pw" name="group_pw" size="30" type="text">	
+				</p>											
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary join-submit">Join</button>
+			<button class="btn" data-dismiss="modal">Close</button>
+		</div>
+	</div>
 	<div id="groups-in">
 <?php if (empty($groupsIn)):?>
 		<div class="ask-empty">
-			<span class="user-name"><?=$this->session->userdata('name')?></span>, you have no joined group! Want to <a class="tooltipped" data-toggle="tooltip" data-placement="bottom" title="Join a new group" href="<?=site_url(array('group', 'join', $this->session->userdata('num')))?>">join</a> one?			
+			<span class="user-name"><?=$this->session->userdata('name')?></span>, you have no joined group! Want to <a class="join-btn" data-toggle="modal" href="#join-modal">JOIN</a> one?
 		</div>						
 <?php else:?>
 		<div class="groups-header clearfix">

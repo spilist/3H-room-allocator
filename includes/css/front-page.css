@@ -6349,9 +6349,9 @@ line-height:1.4
 
 body{
 min-width:1020px;
-color:#333333;
+/*color:#333333;
 background-color:#fff;
-font-family:"나눔고딕";
+font-family:"나눔고딕";*/
 }
 
 ::-moz-selection{
@@ -17666,26 +17666,6 @@ display:table
 
 .select-menu-list.is-showing-new-item-form .select-menu-no-results, .select-menu-list.is-showing-new-item-form .select-menu-clear-item{
 display:none
-}
-
-.modal-backdrop{
-display:none;
--webkit-touch-callout:none;
--webkit-user-select:none;
--khtml-user-select:none;
--moz-user-select:none;
--ms-user-select:none;
-user-select:none
-}
-
-body.menu-active .modal-backdrop{
-display:block;
-position:fixed;
-top:0;
-left:0;
-height:100%;
-width:100%;
-z-index:20
 }
 
 .facebox .sudo{
