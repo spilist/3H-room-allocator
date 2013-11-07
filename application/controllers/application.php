@@ -7,35 +7,48 @@ class Application extends MY_Controller {
 		$this->load->model('room_m');
 		$this->load->model('seat_m');
 		$this->load->model('application_m');
+		$this->load->model('group_m');
 	}
 	
 	public function index() {
-		redirect('/main/dashboard');
+		redirect('/');
 	}
 	
-	function show($mid, $gid) {
-		/* 
-		 $apps_data = array();			
-			$apps = $this->application_m->getsByMember($mid, $gid);
-			foreach ($apps as $app) {
-				array_push($apps_data, array(
-						'seat_id' => $app->seat_id,
-						'seat_priority' => $app->seat_priority,));
-			}
-		 */
-	}
-	
-	function make_new($mid, $gid) {
+	function show($mid, $gid, $new='new') {		
     	$rooms = $this->room_m->getsByGroup($gid);
-		$roomArray = array();
 		
+		if ($new == 'open') {
+			$selects = $this->application_m->getsByMember($mid, $gid);
+		}
+		
+		$roomArray = array();
 		foreach ($rooms as $room) {
 			$seats = $this->seat_m->getsByRoom($room->id);
+			$seat_info = array();
+			foreach ($seats as $seat) {
+				$priority = 0;
+				if ($new == 'open') {
+					foreach ($selects as $selected) {
+						if ($selected->seat_id == $seat->id) {
+							$priority = $selected->seat_priority;							
+							break;
+						}
+					}
+				}
+				
+				array_push($seat_info, array(
+					'sid' => $seat->id,
+					'loc_x' => $seat->seat_location_x,
+					'loc_y' => $seat->seat_location_y,
+					'priority' => $priority,
+					));				
+			}
+			
 			$roomInfo = array( //이거 어레이로 안아고 오브젝트로 해도 됨
 				'room_name'=>$room->room_name,
 				'room_width'=>0, //TODO:
 				'room_height'=>0, //TODO:
-				'seats'=>$seats,
+				'seats'=>$seat_info,
 				);
 			$roomArray[] = $roomInfo;//seats;
 		}
@@ -45,7 +58,7 @@ class Application extends MY_Controller {
 			'mid'=>$mid,
 			'gid'=>$gid,
 		);
-		
+				
 		$this->load->view('application_v', $data);
 	}
 	
@@ -55,5 +68,13 @@ class Application extends MY_Controller {
 		foreach ($seats as $seat) {
 			$this->application_m->create($mid, $gid, (int)$seat, $priority++);
 		}
+		
+		$this->group_m->changeMemApplied($gid, 'inc');
+	}
+	
+	function cancel($mid, $gid) {
+		//$this->application_m->cancel($mid, $gid);
+		//$this->group_m->changeMemApplied($gid, 'dec');
+		redirect("/");
 	}
 }

@@ -41,5 +41,15 @@ class Group_m extends CI_MODEL {
 		$this->db->where('id', $gid);
 		$this->db->update('group', array('member_limit'=>$limit));
 	}
+	
+	function changeMemApplied($gid, $direction) {
+		if ($direction=='inc')
+			$this->db->set('members_applied', 'members_applied + 1', FALSE);
+		else
+			$this->db->set('members_applied', 'members_applied - 1', FALSE);
+		
+		$this->db->where('id', $gid);
+		$this->db->update('group');
+	}
 }
 ?>

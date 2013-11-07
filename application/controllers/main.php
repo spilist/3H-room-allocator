@@ -62,8 +62,9 @@ class Main extends MY_Controller {
 			$num_members = count($this->group_has_mem_m->getsMembersInGroup($group->id));
 			array_push($groups_data, array(
 					'gid' => $gid,
-					'gname' => $gname,
+					'gname' => $gname,					
 					'gowner' => $gowner_name,
+					'gowner_id' => $group->group_owner_id,
 					'num_members' => $num_members,
 					'max_members' => $group->member_limit,
 					'apps_exist' => $apps_exist,
@@ -80,6 +81,8 @@ class Main extends MY_Controller {
 		$data = array();
 		foreach ($groups as $group) {
 			$num_members = count($this->group_has_mem_m->getsMembersInGroup($group->id));
+			if ($group->members_applied == 0) $alloc_disable = 'disabled';
+			else $alloc_disable = '';
 			array_push($data, array(
 					'gid' => $group->id,
 					'gname' => $group->group_name,
@@ -87,6 +90,7 @@ class Main extends MY_Controller {
 					'max_members' => $group->member_limit,
 					'mem_applied' => $group->members_applied,
 					'alloc_done' => $group->allocation_done,
+					'alloc_disable' => $alloc_disable,
 					));
 		}
 		return $data;

@@ -137,9 +137,13 @@ class Group extends MY_Controller {
 				
 				if ($count > 0) {
 					$selected = rand(0, $count-1);
-					$allocatedMembers[] = $candidates[$selected];
-					$this->seat_m->setOwner($seat->id, $candidates[$selected]);
-					//TODO: maintain alloc_result_m
+					$mid =  $candidates[$selected];
+					
+					$allocatedMembers[] = $mid;
+					$this->seat_m->setOwner($seat->id, $mid);
+					
+					$this->load->model('alloc_result_m');
+					$this->alloc_result_m->set($mid, $gid, $seat->id);					
 				}
 			}		
 		}
@@ -181,7 +185,7 @@ class Group extends MY_Controller {
 		$this->load->view('group_allocate_v', $data);
 	}
 	
-	function leave($mid, $gid) {
+	function leave() {
 		$this->group_has_mem_m->leave($mid, $gid);
 		redirect("/");
 	}

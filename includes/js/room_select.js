@@ -11,6 +11,8 @@ $(function() {
 		return false;
 	}
 	
+	// If no seat selected, you cannot apply
+	
 	function add(seat) {
 		//if (selected.length == selectMax)
 		//	return alert('Max seat');
@@ -18,6 +20,8 @@ $(function() {
 		$(seat).addClass("seat-selected");
 		seat.innerHTML = selected.length; //XXX: hack!
 		console.log($(seat));
+		
+		$("#applyBtn").prop("disabled", false);
 	}
 	
 	function remove(seat) {
@@ -33,6 +37,9 @@ $(function() {
 				break;
 			}
 		}
+		
+		if (selected.length == 0) $("#applyBtn").prop("disabled", true);
+		
 		return i;
 	}
 	
@@ -45,8 +52,9 @@ $(function() {
 				add(ui.selected);	
 			}
 		}
-	});
+	});	
 });
+
 
 function doApply()
 {
@@ -69,3 +77,4 @@ function doApply()
   		window.location = $("#applyBtn").attr("redirect_url");
   	});
 }
+

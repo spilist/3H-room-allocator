@@ -29,5 +29,13 @@ class Application_m extends CI_MODEL {
 		$this->db->insert('application', $data);
 		return $this->db->insert_id();
 	}
+	
+	function cancel($mid, $gid) {
+		$data = array(
+			'group_id' => $gid,
+			'member_id' => $mid,				
+			);
+		$this->db->delete('application', $data);
+	}
 }
 ?>
