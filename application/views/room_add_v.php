@@ -1,10 +1,18 @@
 <div id="room-creater-wrapper">
 	<div id="group-configure-header">
-		<h2>Add a new room <span class="group-name"><?="GROUP_NAME"?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
+		<h2>Add a new room for <span class="group-name"><?=$group_name?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
 	</div>
 	
+	<?php $errored='' ?>
+	<dl class="form <?=$errored?>">
+		<dt><label for="room_name" name="room_name">Room name</label></dt>
+		<dd><input id="room_name" name="room_name" size="30" type="text" value="Room"/></dd>
+		<?=form_error('room_name') ?>
+	</dl>
+	
 	<div id="roomCanvas" class="ui-widget-content">
-		<h3 class="ui-widget-header">Room</h3>		
+		<!--<h3 class="ui-widget-header">Room</h3>-->
+			
 	</div>
 	
 	<div>

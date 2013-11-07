@@ -110,8 +110,8 @@ $(function() {
   	console.log("eafe");
   	console.log($("#roomCanvas").children());
   	var children = $("#roomCanvas").children();
-  	var seatArray = []; //arr? new Array();
-  	var postValues = {}; //map? ... 아 이게 json 이랑 똑같네? ........
+  	var seatArray = []; //arr
+  	var postValues = {}; //map
   	var canvasOffset = $("#roomCanvas").offset(); 
   	
   	for (var i = 0; i < children.length; i++) {
@@ -126,7 +126,10 @@ $(function() {
 		}
   	}
   	
-  	postValues['roomJson'] = JSON.stringify(seatArray);
+  	postValues['roomJson'] = JSON.stringify(seatArray); //XXX: rename to seat array
+  	postValues['roomName'] = $("#room_name").val();
+  	alert("gegegegegeg");
+  	alert($("#room_name").val());
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
