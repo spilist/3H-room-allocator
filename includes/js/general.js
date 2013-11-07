@@ -17,8 +17,8 @@ $(".join-submit").click(function() {
 			$(".flash-messages").removeClass("hidden");
 			$(".join-msg").html(ret['msg']);
 		}
-		
+		else {
 			location.reload();
-						
+		}			
 	});		
 });
