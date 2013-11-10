@@ -64,8 +64,8 @@ class Auth extends MY_Controller {
 				$this->load->helper('password');	
 			}			
 			
-			$user = $this->member_m->getByID($this->input->post('id'));			
-			if(isset($user) &&
+			$user = $this->member_m->getByID($this->input->post('id'));
+			if($user &&
 	    		password_verify($this->input->post('password'), $user->member_pw)) {
 	    			
 	    		$this->setUserDataForLogin($user);

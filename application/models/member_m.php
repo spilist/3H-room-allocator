@@ -20,7 +20,10 @@ class Member_m extends CI_MODEL {
 	}
 	
 	function getByID($id) {
-		return $this->db->get_where('member', array('member_id'=>$id))->row();
+		$query = $this->db->get_where('member', array('member_id'=>$id));
+		if ($query->num_rows() == 0)
+			return false;
+		else return $query->row();
 	}
 	
 	function register($mem_info) {

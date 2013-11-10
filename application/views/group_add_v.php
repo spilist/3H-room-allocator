@@ -1,5 +1,5 @@
 <div id="group-add-wrapper" class="container">
-	<h2>Create a new group for <span><?=$this->session->userdata('name')?></span></h2>
+	<h2>Create a new group for <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
 	<div class="columns equacols bordered">
 		<div class="column main">
 			<form accept-charset="UTF-8" action="<?=site_url('/group/create')?>" autocomplete="off" method="post">
