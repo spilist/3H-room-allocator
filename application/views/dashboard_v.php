@@ -29,7 +29,11 @@
 				<tr>
 					<td><?=$group_index++?></td>
 					<td>
+		<?php if ($gown['config_done']):?>
+						<a class="label label-important tooltipped disabled" data-toggle="tooltip" title="Configuration is done"><?=$gown['gname']?></a>
+		<?php else:?>
 						<a class="label label-important tooltipped" data-toggle="tooltip" href="<?=site_url('/group/configure/'.$gown['gid'])?>" title="Click to configure"><?=$gown['gname']?></a>
+		<?php endif;?>
 					</td>
 					<td>
 						<abbr title="current # of members"><?=$gown['num_members']?></abbr>
@@ -44,8 +48,10 @@
 					<td>
 		<?php if ($gown['alloc_done']):?>
 						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/'.$gown['gid'])?>">See the result</a>
-		<?php else:?>			
-						<a class="btn btn-small btn-warning" <?=$gown['alloc_disable']?> href="<?=site_url('/group/allocate/'.$gown['gid'])?>">Allocate Now</a>
+		<?php elseif ($gown['alloc_disable']=='disabled'):?>			
+						<a class="btn btn-small btn-warning <?=$gown['alloc_disable']?>">Nobody applied yet</a>
+		<?php else:?>
+						<a class="btn btn-small btn-warning" href="<?=site_url('/group/allocate/'.$gown['gid'])?>">Allocate Now</a>
 		<?php endif;?>
 						<a class="btn btn-small btn-danger" href="<?=site_url('/group/delete/'.$gown['gid'])?>">Delete this group</a>	
 					</td>				
@@ -116,12 +122,16 @@
 					</td>
 					<td>
 		<?php if ($gin['apps_exist']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url(array('application', 'show', $uid, $gin['gid'], 'open'))?>">Open my request</a>
-		<?php else:?>
+			<?php if (!$gin['alloc_done']):?>
+						<a class="btn btn-small btn-success" href="<?=site_url(array('application', 'show', $uid, $gin['gid'], 'open'))?>">Open my request</a>
+			<?php endif;?>
+		<?php elseif ($gin['config_done']):?>
 						<a class="btn btn-small btn-warning" href="<?=site_url(array('application', 'show', $uid, $gin['gid']))?>">Request for seat</a>
-		<?php endif;?>
-		<?php if ($gin['seat_exist']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url(array('seat', 'assigned', $uid, $gin['gid']))?>">See my seat</a>
+		<?php else:?>
+						<a class="btn btn-small btn-warning disabled">Group configuration is not completed</a>
+		<?php endif;?>						
+		<?php if ($gin['alloc_done']):?>
+						<a class="btn btn-small btn-primary" href="<?=site_url(array('group', 'alloc_result', $gin['gid'], $uid))?>">See my seat</a>
 		<?php endif;?>
 		<?php if ($gin['gowner_id']!=$uid):?>
 						<a class="btn btn-small btn-danger" href="<?=site_url(array('group', 'leave', $uid, $gin['gid']))?>">Leave this group</a>

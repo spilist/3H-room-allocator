@@ -7,8 +7,7 @@ class Main extends MY_Controller {
 		$this->load->model('group_has_mem_m');
 		$this->load->model('group_m');
 		$this->load->model('member_m');	
-		$this->load->model('application_m');
-		$this->load->model('alloc_result_m');
+		$this->load->model('application_m');		
 		$this->load->model('seat_m');
 	}
 	
@@ -54,11 +53,6 @@ class Main extends MY_Controller {
 			if (empty($apps)) $apps_exist = false;
 			else $apps_exist = true;
 			
-			// 내가 이 그룹에서 좌석을 배정받았는가?
-			$seat = $this->alloc_result_m->getSeat($mid, $gid);
-			if (empty($seat)) $seat_exist = false;
-			else $seat_exist = true;			
-			
 			$num_members = count($this->group_has_mem_m->getsMembersInGroup($group->id));
 			array_push($groups_data, array(
 					'gid' => $gid,
@@ -68,7 +62,8 @@ class Main extends MY_Controller {
 					'num_members' => $num_members,
 					'max_members' => $group->member_limit,
 					'apps_exist' => $apps_exist,
-					'seat_exist' => $seat_exist,
+					'alloc_done' => $group->allocation_done,
+					'config_done' => $group->config_done,
 					));			
 		}
 		return $groups_data;
@@ -91,6 +86,7 @@ class Main extends MY_Controller {
 					'mem_applied' => $group->members_applied,
 					'alloc_done' => $group->allocation_done,
 					'alloc_disable' => $alloc_disable,
+					'config_done' => $group->config_done,
 					));
 		}
 		return $data;

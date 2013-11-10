@@ -115,8 +115,7 @@ class Group extends MY_Controller {
 					if ($count > 0) {
 						$selected = rand(0, $count-1);
 						$allocatedMembers[] = $candidates[$selected];
-						$this->seat_m->setOwner($seat->id, $candidates[$selected]);
-						//TODO: maintain alloc_result_m
+						$this->seat_m->setOwner($seat->id, $candidates[$selected]);						
 					}
 				}		
 			}
@@ -155,10 +154,7 @@ class Group extends MY_Controller {
 					$mid =  $candidates[$selected];
 					
 					$allocatedMembers[] = $mid;
-					$this->seat_m->setOwner($seat->id, $mid);
-					
-					$this->load->model('alloc_result_m');
-					$this->alloc_result_m->set($mid, $gid, $seat->id);					
+					$this->seat_m->setOwner($seat->id, $mid);															
 				}
 			}		
 		}
@@ -166,7 +162,7 @@ class Group extends MY_Controller {
 		$this->alloc_result($gid);
 	}
 	
-	function alloc_result($gid) {
+	function alloc_result($gid, $mid=-1) {
 		$rooms = $this->room_m->getsByGroup($gid);
 		$roomArray = array();
 		
@@ -177,9 +173,12 @@ class Group extends MY_Controller {
 			// Find names
 			foreach ($seats as $seat) {
 				if ($seat->seat_owner_id) {
-					$seat->seat_owner_name = $this->member_m->getName($seat->seat_owner_id)->member_name;	
+					$seat->seat_owner_name = $this->member_m->getName($seat->seat_owner_id)->member_name;
+					if ($mid == $seat->seat_owner_id) {
+						$seat->seat_owner_name = "<span style='font-size: medium;color: blue;font-weight: bold;'>".$seat->seat_owner_name."</span>";					
+					}
 				} else {
-					$seat->seat_owner_name = "<span class='muted'>empty</span>";
+					$seat->seat_owner_name = "<span class='muted'>empty</span>";					
 				}
 			}
 			
@@ -209,7 +208,7 @@ class Group extends MY_Controller {
 	
 	function delete($gid) {
 		$group = $this->group_m->get($gid);
-		if ($this->session->userdata('num') != $group->id) {
+		if ($this->session->userdata('num') != $group->group_owner_id) {
 			redirect("/");
 		}
 		
