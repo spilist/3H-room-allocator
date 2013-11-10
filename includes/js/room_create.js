@@ -3,6 +3,7 @@ $(function() {
   	var selected = null;
   	var startOfs = null;
   	
+  	$(".seat").draggable({ grid: [ 10, 10 ] });
     $( "#seatBtn" ).draggable({
     	appendTo: "body",
     	helper: "clone",
@@ -48,11 +49,11 @@ $(function() {
       	//console.log(this.offset());
       	var ofs = $( "#roomCanvas" ).offset();
       	if (ui.draggable.is("#doorBtn")) {
-      		var door = $( "<div><p>door</p></div>" ).addClass("door").addClass("ui-widget-content");
+      		var door = $( "<div><span>door</span></div>" ).addClass("door").addClass("ui-widget-content");
       		door.draggable({ grid: [ 10, 10 ] });
 	      	door.css({
 	      		position:"absolute",
-	      		top:ui.position.top - ofs.top,
+	      		top:ui.position.top - ofs.top, 
 	      		left:ui.position.left - ofs.left,
 	      	});
 	
@@ -61,7 +62,7 @@ $(function() {
       	}
       	
       	//var seat = $( "<div><span>seat</span></div>" ).addClass("seat").addClass("ui-widget-content");
-      	var seat = $( "<div></div>" ).addClass("seat").addClass("ui-widget-content");
+      	var seat = $( "<div><span>seat</span></div>" ).addClass("seat").addClass("ui-widget-content");
       	seat.draggable({ grid: [ 10, 10 ] });
       	seat.css({
       		position:"absolute",
@@ -87,25 +88,38 @@ $(function() {
   	var canvasOffset = $("#roomCanvas").offset(); 
   	
   	for (var i = 0; i < children.length; i++) {
-  		//console.log(children[i]);
   		var child = $(children[i]);
 		if(child.hasClass("seat")) {
 			var seatInfo = {};
 			seatInfo['seat_location_x'] = child.offset().left - canvasOffset.left;
 			seatInfo['seat_location_y'] = child.offset().top - canvasOffset.top;
-			console.log(seatInfo);
+			
+			//XXX: how to handle delete???!?!?!????
+			//XXX: already applicated ..... tuples?????? how????????????
+			//if(child.attr("sid"))
+			//	seatInfo['seat_id'] = child.attr("sid");
+			//else
+			//	seatInfo['seat_id'] = "none";
+			
 			seatArray.push(seatInfo);
 		}
   	}
   	
   	postValues['roomJson'] = JSON.stringify(seatArray); //XXX: rename to seat array
   	postValues['roomName'] = $("#room_name").val();
+  	postValues['work'] = $("#work").val();
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
   	console.log($("#submitBtn").attr("create_url"));
   	
-  	$.post($("#submitBtn").attr("create_url"), postValues, function(data) {
+  	var url;
+  	if ($("#work").val() == "modify")
+  		url = $("#submitBtn").attr("update_url");
+  	else
+  		url = $("#submitBtn").attr("create_url");
+  	
+  	$.post(url, postValues, function(data) {
   		console.log(data);
   		//window.location.replace($("#submitBtn").data("site_url"));
   		//application/make_new/1/1
