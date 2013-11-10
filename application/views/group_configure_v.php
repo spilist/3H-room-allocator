@@ -1,6 +1,7 @@
 <div id="group-configure-wrapper" class="container">
 	<div id="group-configure-header">
 		<h2>Group <span class="group-name"><?=$gname?></span>- created by <span class="user-name"><?=$this->session->userdata('name')?></span></h2>
+		<a href="<?=site_url('/group/configure_done/'.$gid)?>" class="btn btn-primary">Start to get requests</a>
 		<a href="<?=site_url('/')?>" class="btn btn-info">Go back to the dashboard</a>
 	</div>
 	<div id="group-room-list">

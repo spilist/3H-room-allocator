@@ -43,7 +43,7 @@
 					</td>
 					<td>
 		<?php if ($gown['alloc_done']):?>
-						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/')?>">See the result</a>
+						<a class="btn btn-small btn-primary" href="<?=site_url('/group/alloc_result/'.$gown['gid'])?>">See the result</a>
 		<?php else:?>			
 						<a class="btn btn-small btn-warning" <?=$gown['alloc_disable']?> href="<?=site_url('/group/allocate/'.$gown['gid'])?>">Allocate Now</a>
 		<?php endif;?>

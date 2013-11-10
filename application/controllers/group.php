@@ -70,7 +70,19 @@ class Group extends MY_Controller {
 		$this->load->view('group_configure_v', $data);
 	}
 	
+	function configure_done($gid) {
+		$this->group_m->updateConfigDone($gid, 1);
+		redirect('/');
+	}
+	
 	function allocate($gid) {
+		//Check already allocated
+		$group = $this->group_m->get($gid);
+		if ($group->allocation_done) {
+			$this->alloc_result($gid);
+			return;
+		}
+		
 		$allocatedMembers = array();
 		$rooms = $this->room_m->getsByGroup($gid);
 		$priority = 1; //TODO: to max
@@ -112,6 +124,8 @@ class Group extends MY_Controller {
 		
 		// TODO: handle not allocated members
 		// Do after join finished
+		
+		$this->group_m->updateAlocationDone($gid, 1);
 		
 		$this->alloc_result($gid);
 	}

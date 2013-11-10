@@ -58,5 +58,15 @@ class Group_m extends CI_MODEL {
 			);
 		$this->db->delete('group', $data);
 	}
+	
+	function updateConfigDone($gid, $val) {
+		$this->db->where('id', $gid);
+		$this->db->update('group', array('config_done'=>$val));
+	}
+	
+	function updateAlocationDone($gid, $val) {
+		$this->db->where('id', $gid);
+		$this->db->update('group', array('allocation_done'=>$val));
+	}
 }
 ?>
