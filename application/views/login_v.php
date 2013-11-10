@@ -15,9 +15,9 @@
 					<label for="password">Password </label>
 					<input class="input-block" id="password" name="password" tabindex="2" type="password" value="<?=set_value('password')?>">
 					<input class="button" name="commit" tabindex="3" type="submit" value="Sign In">					
-					<a target="" class="auth-up" href="<?=site_url('/auth/fakeLogin')?>">
+					<!--<a target="" class="auth-up" href="<?=site_url('/auth/fakeLogin')?>">
 						<span class="button">Sign In for testing</span>
-					</a>
+					</a>-->
 				</div>
 			</form>
 		</div>
