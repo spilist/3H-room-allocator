@@ -19,8 +19,8 @@
 					<td><?=$room_index++?></td>
 					<td><?=$room['room_name']?></td>
 					<td>
-						<a class="btn btn-small" href="<?=site_url(array('room', 'modify', $room['room_id']))?>">Modify</a>
-						<a class="btn btn-small btn-danger" href="<?=site_url(array('room', 'delete', $room['room_id']))?>">Delete</a>
+						<a class="btn btn-small" href="<?=site_url(array('room', 'modify', $room['room_id'], $gid))?>">Modify</a>
+						<a class="btn btn-small btn-danger" href="<?=site_url(array('room', 'delete', $room['room_id'], $gid))?>">Delete</a>
 					</td>
 				</tr>
 <?php endforeach;?>

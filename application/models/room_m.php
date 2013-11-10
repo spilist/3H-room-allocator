@@ -6,6 +6,10 @@ class Room_m extends CI_MODEL {
 		parent::__construct();
 	}		
 	
+	function get($rid) {
+		return $this->db->get_where('room', array('id'=>$rid))->row();
+	}
+	
 	function getsAll() {
 		return $this->db->get('room')->result();
 	}
@@ -23,6 +27,13 @@ class Room_m extends CI_MODEL {
 		
 		$this->db->insert('room', $room_info);
 		return $this->db->insert_id();
+	}
+	
+	function delete($rid) {
+		$data = array(
+			'id' => $rid,
+			);
+		$this->db->delete('room', $data);
 	}
 }
 ?>
