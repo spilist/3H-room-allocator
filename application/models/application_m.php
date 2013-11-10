@@ -27,17 +27,17 @@ class Application_m extends CI_MODEL {
 			'seat_priority' => $priority,
 		);
 		if ($priority != 0) $this->db->insert('application', $data);		
-		return $this->db->insert_id();			
 	}
 	
 	function modify($mid, $gid, $sid, $priority) {
 		$data = array(
 			'member_id' => $mid,
 			'group_id' => $gid,
-			'seat_id' => $sid,
-			'seat_priority' => $priority,
+			'seat_id' => $sid,			
 		);
-		if ($priority != 0) $this->db->update('application', $data);				
+		$this->db->where($data);
+		
+		if ($priority != 0) $this->db->update('application', array('seat_priority' => $priority));				
 		else $this->db->delete('application', $data);
 	}
 	

@@ -72,6 +72,7 @@ class Application extends MY_Controller {
 	function make_newHandler($mid, $gid, $new='new') {
 		$seats = json_decode($this->input->post('seats'));
 		$prios = json_decode($this->input->post('prio'));
+		
 		for ($i=0; $i<count($seats); $i++) {
 			if ($new=='new') {
 				$this->application_m->create($mid, $gid, $seats[$i], $prios[$i]);
@@ -87,7 +88,7 @@ class Application extends MY_Controller {
 	}
 	
 	function cancel($mid, $gid, $new='new') {
-		if ($new='open') {
+		if ($new=='open') {
 			$this->application_m->cancel($mid, $gid);
 			$this->group_m->changeMemApplied($gid, 'dec');
 		}
