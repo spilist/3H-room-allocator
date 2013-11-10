@@ -21,6 +21,8 @@ class Room extends MY_Controller {
 			'seats'=>array(),
 			'rid'=>0,
 			'room_name'=>'Room',
+			'room_width'=>400,
+			'room_height'=>300,
 			);
 		$this->load->view('room_add_v', $data);
 	}
@@ -30,6 +32,8 @@ class Room extends MY_Controller {
 		// Create a room
 		$rid = $this->room_m->createRoom(array(
 			'room_name'=>$this->input->post('roomName'),
+			'room_width'=>(int)$this->input->post('roomWidth'),
+			'room_height'=>(int)$this->input->post('roomHeight'),
 			'group_id'=>$gid,
 		));
 		
@@ -59,6 +63,8 @@ class Room extends MY_Controller {
 		//create($gid);
 		$rid = $this->room_m->createRoom(array(
 			'room_name'=>$this->input->post('roomName'),
+			'room_width'=>(int)$this->input->post('roomWidth'),
+			'room_height'=>(int)$this->input->post('roomHeight'),
 			'group_id'=>$gid,
 		));
 		
@@ -98,6 +104,8 @@ class Room extends MY_Controller {
 			'rid'=>$rid,
 			'seats'=>$seats,
 			'room_name'=>$room->room_name,
+			'room_width'=>$room->room_width,
+			'room_height'=>$room->room_height,
 		);
 		$this->load->view('room_add_v', $data);
 	}

@@ -12,7 +12,7 @@
 		<?=form_error('room_name') ?>
 	</dl>
 	
-	<div id="roomCanvas" class="ui-widget-content">
+	<div id="roomCanvas" class="ui-widget-content" style="width:<?=$room_width?>px; height:<?=$room_height?>px">
 		<?php foreach ($seats as $seat): ?>
 			<div class="seat ui-widget-content" style="position: absolute; top:<?=$seat->seat_location_y?>px; left:<?=$seat->seat_location_x?>px;" sid=<?=$seat->id?>><span>seat</span></div>
 		<?php endforeach;?>

@@ -108,6 +108,8 @@ $(function() {
   	postValues['roomJson'] = JSON.stringify(seatArray); //XXX: rename to seat array
   	postValues['roomName'] = $("#room_name").val();
   	postValues['work'] = $("#work").val();
+  	postValues['roomWidth'] = $("#roomCanvas").width();
+  	postValues['roomHeight'] = $("#roomCanvas").height();
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);
