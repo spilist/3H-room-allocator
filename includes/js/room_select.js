@@ -2,45 +2,47 @@ var selected = new Array();
 
 $(function() {
 	
-	var selectMax = 5;
+	var selectMax = $(".max-seats").attr("max-seats");	
 	
 	function has(seat) {
-		for (var i = 0; i < selected.length; i++)
-			if (selected[i] == seat)
-				return true;
-		return false;
+		if ($(seat).attr("prio") > 0) return true;
+		else return false;		
 	}
 	
 	// If no seat selected, you cannot apply
 	
-	function add(seat) {
-		//if (selected.length == selectMax)
-		//	return alert('Max seat');
+	function add(seat, isModify) {
+		if (selected.length == selectMax)
+			return alert('Max seat');
+		
 		selected[selected.length] = seat;
 		$(seat).addClass("seat-selected");
-		seat.innerHTML = selected.length; //XXX: hack!
-		console.log($(seat));
+		if (isModify == false) {
+			$(seat).attr("prio", selected.length);
+		}
+		$(seat).html($(seat).attr("prio"));
+		//console.log($(seat));				
 		
-		$("#applyBtn").prop("disabled", false);
+		$("#applyBtn").prop("disabled", false);		
 	}
 	
 	function remove(seat) {
-		for (var i = 0; i < selected.length; i++) {
-			if (selected[i] == seat) {
-				for (var j = i; j < selected.length - 1; j++) {
-					selected[j] = selected[j+1];
-					selected[j].innerHTML = j+1;
-				}
-				selected.length--;
-				$(seat).removeClass("seat-selected");
-				seat.innerHTML = "seat";
-				break;
-			}
-		}
+		var target = $(seat).attr("prio");
+		$(".seat").each(function() {
+			var cur = $(this).attr("prio");
+			if (cur > target) {
+				cur--;
+				$(this).attr("prio", cur);
+				$(this).html(cur);					
+			}				
+		});
 		
-		if (selected.length == 0) $("#applyBtn").prop("disabled", true);
+		selected.length--;		
+		$(seat).removeClass("seat-selected");
+		$(seat).attr("prio", 0);
+		seat.innerHTML = "seat";
 		
-		return i;
+		if (selected.length == 0) $("#applyBtn").prop("disabled", true);				
 	}
 	
 	$(".room").selectable({
@@ -49,10 +51,14 @@ $(function() {
 			if (has(ui.selected)) {
 				remove(ui.selected);
 			} else {
-				add(ui.selected);	
+				add(ui.selected, false);
 			}
 		}
-	});	
+	});
+	
+	$(".seat[prio!=0]").each(function() {
+		add($(this), true);
+	});
 });
 
 
@@ -62,15 +68,16 @@ function doApply()
 	
 	//XXX: 아... 이게 아니고 seat id 를 가지고 있어야 하고...... 그거에 맞게 apply 가 되어야 할듯 ㅇㅇ
 	var seatArray = [];
+	var prioArray = [];
 	var postValues = {};
 	
-	for (var i = 0; i < selected.length; i++) {
-		var seat = $(selected[i]);
-		seatArray.push(seat.attr("sid"));
-	}
+	$(".seat").each(function() {
+		seatArray.push($(this).attr("sid"));
+		prioArray.push($(this).attr("prio"));
+	});
 	
 	postValues['seats'] = JSON.stringify(seatArray);
-	console.log(postValues['seats']);
+	postValues['prio'] = JSON.stringify(prioArray);
 	
 	$.post($("#applyBtn").attr("action_url"), postValues, function(data) {
   		console.log(data);

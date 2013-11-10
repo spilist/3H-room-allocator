@@ -8,6 +8,7 @@ class Application extends MY_Controller {
 		$this->load->model('seat_m');
 		$this->load->model('application_m');
 		$this->load->model('group_m');
+		$this->load->model('member_m');
 	}
 	
 	public function index() {
@@ -53,28 +54,44 @@ class Application extends MY_Controller {
 			$roomArray[] = $roomInfo;//seats;
 		}
 		
+		$group = $this->group_m->get($gid);
+		
 		$data = array(
 			'roomArray'=>$roomArray,
 			'mid'=>$mid,
 			'gid'=>$gid,
+			'gname'=>$group->group_name,
+			'gseats' => $group->selectable_seat_numbers,
+			'gowner' => $this->member_m->getName($group->group_owner_id)->member_name,
+			'new' => $new,
 		);
 				
 		$this->load->view('application_v', $data);
 	}
 	
-	function make_newHandler($mid, $gid) {
+	function make_newHandler($mid, $gid, $new='new') {
 		$seats = json_decode($this->input->post('seats'));
-		$priority = 1;
-		foreach ($seats as $seat) {
-			$this->application_m->create($mid, $gid, (int)$seat, $priority++);
+		$prios = json_decode($this->input->post('prio'));
+		for ($i=0; $i<count($seats); $i++) {
+			if ($new=='new') {
+				$this->application_m->create($mid, $gid, $seats[$i], $prios[$i]);
+			}
+			else {
+				$this->application_m->modify($mid, $gid, $seats[$i], $prios[$i]);
+			}
 		}
 		
-		$this->group_m->changeMemApplied($gid, 'inc');
+		if ($new=='new') {
+			$this->group_m->changeMemApplied($gid, 'inc');
+		}
 	}
 	
-	function cancel($mid, $gid) {
-		//$this->application_m->cancel($mid, $gid);
-		//$this->group_m->changeMemApplied($gid, 'dec');
+	function cancel($mid, $gid, $new='new') {
+		if ($new='open') {
+			$this->application_m->cancel($mid, $gid);
+			$this->group_m->changeMemApplied($gid, 'dec');
+		}
+			
 		redirect("/");
 	}
 }

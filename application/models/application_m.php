@@ -26,8 +26,19 @@ class Application_m extends CI_MODEL {
 			'seat_id' => $sid,
 			'seat_priority' => $priority,
 		);
-		$this->db->insert('application', $data);
-		return $this->db->insert_id();
+		if ($priority != 0) $this->db->insert('application', $data);		
+		return $this->db->insert_id();			
+	}
+	
+	function modify($mid, $gid, $sid, $priority) {
+		$data = array(
+			'member_id' => $mid,
+			'group_id' => $gid,
+			'seat_id' => $sid,
+			'seat_priority' => $priority,
+		);
+		if ($priority != 0) $this->db->update('application', $data);				
+		else $this->db->delete('application', $data);
 	}
 	
 	function cancel($mid, $gid) {
@@ -36,6 +47,14 @@ class Application_m extends CI_MODEL {
 			'member_id' => $mid,				
 			);
 		$this->db->delete('application', $data);
+	}
+	
+	function exist($mid, $gid) {
+		$data = array(
+			'group_id' => $gid,
+			'member_id' => $mid,				
+			);
+		return ($this->db->get_where('application', $data)->num_rows() > 0); 
 	}
 }
 ?>
