@@ -12,6 +12,11 @@ class Object_m extends CI_MODEL {
 	
 	function getsInRoom($room_id) {
 		return $this->db->get_where('object', array('room_id'=>$room_id))->result();
+	}
+	
+	function create($objInfo) {
+		$this->db->insert('object', $objInfo);
+		return $this->db->insert_id();
 	}		
 }
 ?>

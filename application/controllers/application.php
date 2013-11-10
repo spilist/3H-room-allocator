@@ -9,6 +9,7 @@ class Application extends MY_Controller {
 		$this->load->model('application_m');
 		$this->load->model('group_m');
 		$this->load->model('member_m');
+		$this->load->model('object_m');
 	}
 	
 	public function index() {
@@ -25,6 +26,7 @@ class Application extends MY_Controller {
 		$roomArray = array();
 		foreach ($rooms as $room) {
 			$seats = $this->seat_m->getsByRoom($room->id);
+			$objects = $this->object_m->getsInRoom($room->id);
 			$seat_info = array();
 			foreach ($seats as $seat) {
 				$priority = 0;
@@ -47,9 +49,10 @@ class Application extends MY_Controller {
 			
 			$roomInfo = array( //이거 어레이로 안아고 오브젝트로 해도 됨
 				'room_name'=>$room->room_name,
-				'room_width'=>0, //TODO:
-				'room_height'=>0, //TODO:
+				'room_width'=>$room->room_width,
+				'room_height'=>$room->room_height,
 				'seats'=>$seat_info,
+				'objects'=>$objects,
 				);
 			$roomArray[] = $roomInfo;//seats;
 		}

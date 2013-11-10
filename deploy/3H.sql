@@ -103,12 +103,14 @@ CREATE TABLE IF NOT EXISTS `room` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room_name` varchar(45) NOT NULL,
   `group_id` int(11) NOT NULL,
+  `room_width` int(11) NOT NULL,
+  `room_height` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_room_lab1_idx` (`group_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
-INSERT INTO `room` (`id`, `room_name`, `group_id`) VALUES
-(1, 'test_room', 1);
+INSERT INTO `room` (`id`, `room_name`, `group_id`, `room_width`, `room_height`) VALUES
+(1, 'test_room', 1, 425, 300);
 
 DROP TABLE IF EXISTS `seat`;
 CREATE TABLE IF NOT EXISTS `seat` (

@@ -12,6 +12,7 @@ class Group extends MY_Controller {
 		$this->load->model('application_m');
 		$this->load->model('member_m');
 		$this->load->model('group_has_mem_m');
+		$this->load->model('object_m');
 	}
 	
 	public function index() {
@@ -157,6 +158,7 @@ class Group extends MY_Controller {
 		
 		foreach ($rooms as $room) {
 			$seats = $this->seat_m->getsByRoom($room->id);
+			$objects = $this->object_m->getsInRoom($room->id);
 			
 			// Find names
 			foreach ($seats as $seat) {
@@ -169,13 +171,14 @@ class Group extends MY_Controller {
 			
 			$roomInfo = array(
 				'room_name'=>$room->room_name,
-				'room_width'=>0, //TODO:
-				'room_height'=>0, //TODO:
+				'room_width'=>$room->room_width,
+				'room_height'=>$room->room_height,
 				'seats'=>$seats,
+				'objects'=>$objects,
 				);
 				
 			
-			$roomArray[] = $roomInfo;//$seats;
+			$roomArray[] = $roomInfo;
 		}
 		
 		$data = array(

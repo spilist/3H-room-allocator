@@ -16,6 +16,9 @@
 		<?php foreach ($seats as $seat): ?>
 			<div class="seat ui-widget-content" style="position: absolute; top:<?=$seat->seat_location_y?>px; left:<?=$seat->seat_location_x?>px;" sid=<?=$seat->id?>><span>seat</span></div>
 		<?php endforeach;?>
+		<?php foreach ($objects as $obj): ?>
+			<div class="door ui-widget-content" style="position: absolute; top:<?=$obj->object_location_y?>px; left:<?=$obj->object_location_x?>px;"><span>door</span></div>
+		<?php endforeach;?>
 	</div>
 	
 	<div>

@@ -4,6 +4,8 @@ $(function() {
   	var startOfs = null;
   	
   	$(".seat").draggable({ grid: [ 10, 10 ] });
+  	$(".door").draggable({ grid: [ 10, 10 ] });
+  	
     $( "#seatBtn" ).draggable({
     	appendTo: "body",
     	helper: "clone",
@@ -84,6 +86,7 @@ $(function() {
   	console.log($("#roomCanvas").children());
   	var children = $("#roomCanvas").children();
   	var seatArray = []; //arr
+  	var objArray = [];
   	var postValues = {}; //map
   	var canvasOffset = $("#roomCanvas").offset(); 
   	
@@ -93,15 +96,13 @@ $(function() {
 			var seatInfo = {};
 			seatInfo['seat_location_x'] = child.offset().left - canvasOffset.left;
 			seatInfo['seat_location_y'] = child.offset().top - canvasOffset.top;
-			
-			//XXX: how to handle delete???!?!?!????
-			//XXX: already applicated ..... tuples?????? how????????????
-			//if(child.attr("sid"))
-			//	seatInfo['seat_id'] = child.attr("sid");
-			//else
-			//	seatInfo['seat_id'] = "none";
-			
 			seatArray.push(seatInfo);
+		}
+		else if(child.hasClass("door")) {
+			var objInfo = {};
+			objInfo['object_location_x'] = child.offset().left - canvasOffset.left;
+			objInfo['object_location_y'] = child.offset().top - canvasOffset.top;
+			objArray.push(objInfo);
 		}
   	}
   	
@@ -110,6 +111,7 @@ $(function() {
   	postValues['work'] = $("#work").val();
   	postValues['roomWidth'] = $("#roomCanvas").width();
   	postValues['roomHeight'] = $("#roomCanvas").height();
+  	postValues['objects'] = JSON.stringify(objArray);
   	
   	console.log(seatArray);
   	console.log(postValues['roomJson']);

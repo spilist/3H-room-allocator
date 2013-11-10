@@ -6,6 +6,7 @@ class Room extends MY_Controller {
 		$this->load->model('group_m');
 		$this->load->model('room_m');
 		$this->load->model('seat_m');
+		$this->load->model('object_m');
     }
 	
 	function index() {
@@ -21,8 +22,9 @@ class Room extends MY_Controller {
 			'seats'=>array(),
 			'rid'=>0,
 			'room_name'=>'Room',
-			'room_width'=>400,
+			'room_width'=>425,
 			'room_height'=>300,
+			'objects'=>array(),
 			);
 		$this->load->view('room_add_v', $data);
 	}
@@ -46,6 +48,18 @@ class Room extends MY_Controller {
 				'room_id'=>$rid,
 			);
 			$this->seat_m->createSeat($seatInfo);
+		}
+		
+		$objects = json_decode($this->input->post('objects'));
+		
+		foreach ($objects as $obj) {
+			$objInfo = array(
+				'object_type'=>1,
+				'object_location_x'=>(int)$obj->object_location_x,
+				'object_location_y'=>(int)$obj->object_location_y,
+				'room_id'=>$rid,
+			);
+			$this->object_m->create($objInfo);
 		}
 		
 		// Increase seat count
@@ -79,6 +93,18 @@ class Room extends MY_Controller {
 			$this->seat_m->createSeat($seatInfo);
 		}
 		
+		$objects = json_decode($this->input->post('objects'));
+		
+		foreach ($objects as $obj) {
+			$objInfo = array(
+				'object_type'=>1,
+				'object_location_x'=>(int)$obj->object_location_x,
+				'object_location_y'=>(int)$obj->object_location_y,
+				'room_id'=>$rid,
+			);
+			$this->object_m->create($objInfo);
+		}
+		
 		// Increase seat count
 		$limit = $this->group_m->getMemberLimit($gid) + count($seats);
 		$this->group_m->updateMemberLimit($gid, $limit);
@@ -97,6 +123,7 @@ class Room extends MY_Controller {
 		$room = $this->room_m->get($rid);
 		$group = $this->group_m->get($gid);
 		$seats = $this->seat_m->getsByRoom($rid);
+		$objects = $this->object_m->getsInRoom($rid);
 		$data = array(
 			'work'=>'modify',
 			'gid'=>$gid,
@@ -106,6 +133,7 @@ class Room extends MY_Controller {
 			'room_name'=>$room->room_name,
 			'room_width'=>$room->room_width,
 			'room_height'=>$room->room_height,
+			'objects'=>$objects,
 		);
 		$this->load->view('room_add_v', $data);
 	}
