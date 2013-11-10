@@ -1,10 +1,19 @@
 <div id="#select-room-wrapper" class="container">
 	<div>
-		<div><h2>Select seats from below</h2></div>
+		<div>
+			<h2>Select seats from below: for <span class="user-name"><?=$gowner?></span>'s <span class="group-name"><?=$gname?></span></h2>
+			<p class="muted max-seats" max-seats="<?=$gseats?>">You can choose at most <b><?=$gseats?></b> seats.</p>
+		</div>
 		<button disabled id="applyBtn" class="btn btn-primary" onClick="doApply()" 
-			action_url="<?=site_url('/application/make_newHandler/'.$mid.'/'.$gid)?>"
-			redirect_url="<?=site_url('/')?>">Apply</button>
-		<a href="<?=site_url(array('application','cancel',$mid,$gid))?>" class="btn btn-danger">Cancel this request</a>
+			action_url="<?=site_url(array('application','make_newHandler',$mid,$gid,$new))?>"
+			redirect_url="<?=site_url('/')?>">
+<?php if ($new == 'new'):?>
+			Apply
+<?php else:?>
+			Modify
+<?php endif;?>
+		</button>
+		<a href="<?=site_url(array('application','cancel',$mid,$gid,$new))?>" class="btn btn-danger">Cancel this request</a>
 		<a href="<?=site_url('/')?>" class="btn btn-info">Go back to the dashboard</a>
 	</div>
 		
